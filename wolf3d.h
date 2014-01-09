@@ -17,6 +17,7 @@ typedef struct	s_win
 	int		echap;
 }				t_win;
 
-void	ft_read_and_print(t_win *window);
+void	ft_read(t_win *window);
+void	ft_draw(t_win *window, char **map);
 
 #endif

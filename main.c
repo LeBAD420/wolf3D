@@ -15,7 +15,8 @@ static int		ft_key_hook(int keycode, t_win *window)
 
 static int		ft_expose_hook(t_win *window)
 {
-	ft_read_and_print(window);
+	ft_read(window);
+	ft_draw(window, map);
 	return (0);
 }
 
