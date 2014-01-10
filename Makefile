@@ -6,9 +6,9 @@ INCLUDE		= ./includes/
 
 SRCS		= 	main.c				\
 				camera_fct.c		\
-				hook_fct.c			\
 				error_fct.c			\
-				read.c				\
+				hook_fct.c			\
+				error_fct.c
 
 OBJS		= $(SRCS:.c=.o)
 

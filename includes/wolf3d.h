@@ -6,6 +6,7 @@
 # include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+# include <stdio.h>
 
 # define WIN_WID 200
 # define WIN_LEN 320
@@ -41,8 +42,8 @@ typedef struct 		s_cam
 ** camera_fct.c
 */
 t_cam	*new_camera(int x, int y, int angle);
-void	set_camera(t_cam **cam, int x, int y, int angle);
-void	del_camera(t_cam **cam);
+void	set_camera(t_cam *cam, int x, int y, int angle);
+void	del_camera(t_cam *cam);
 
 /*
 ** error_fct.c

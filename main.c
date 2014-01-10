@@ -15,11 +15,11 @@ int		main(int argc, char **argv)
 		ft_error("open () error");
 
 	//Init Env
-	window.mlx = mlx.init();
+	window.mlx = mlx_init();
 	window.win = mlx_new_window(window.mlx, WIN_LEN, WIN_WID, "wolf3d");
-	/*mlx_key_hook(window.win, ft_key_hook, &window);
+	mlx_key_hook(window.win, ft_key_hook, &window);
 	mlx_expose_hook(window.win, ft_expose_hook, &window);
-	mlx_loop(window.mlx);*/
+	mlx_loop(window.mlx);
 
 	//Init camera
 
@@ -32,5 +32,7 @@ int		main(int argc, char **argv)
 	//Fini !
 	if (close(window.fd) == -1)
 		ft_error("close () error");
+
+
 	return (0);
 }

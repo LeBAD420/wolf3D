@@ -2,6 +2,7 @@
 
 void	ft_error(char *s)
 {
-	ft_putstr(s);
+	//ft_putstr(s);
+	s=s;
 	exit(0);
 }
