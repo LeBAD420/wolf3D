@@ -15,6 +15,7 @@
 # define WALL '*'
 # define PATH ' '
 # define STEP 64
+# define STARTANGLE 90
 
 typedef struct		s_win
 {
@@ -29,6 +30,8 @@ typedef struct		s_map
 	char			**lines;
 	int				l_num;
 	int				c_num;
+	int				start_x;
+	int				start_y;
 }					t_map;
 
 typedef struct 		s_cam

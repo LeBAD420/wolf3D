@@ -5,14 +5,15 @@
 int		main(int argc, char **argv)
 {
 	t_win	window;
+	t_cam	*cam;
+	t_map	*map;
 
 	//Check argv
 	if (argc > 2)
 		ft_error("Too many parameters in command line");
 
 	//Check map et Init Map
-	if ((window.fd = open(argv[1], O_RDONLY)) == -1)
-		ft_error("open () error");
+
 
 	//Init Env
 	window.mlx = mlx_init();
@@ -22,6 +23,7 @@ int		main(int argc, char **argv)
 	mlx_loop(window.mlx);
 
 	//Init camera
+	cam = new_camera(map->start_x, map->start_y, STARTANGLE);
 
 	//Calcul Img
 
