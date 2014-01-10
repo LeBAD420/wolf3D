@@ -29,7 +29,7 @@ static char		**ft_realloc(char **map, int count, char *line)
 
 char			**ft_read(t_win *window)
 {
-	char	**map;
+	t_map	map;
 	char	*line;
 	int		count;
 
@@ -37,7 +37,9 @@ char			**ft_read(t_win *window)
 	while ((ret = get_next_line(window->fd, &line)))
 	{
 		count = ft_count_line(map);
-		map = ft_realloc(map, count + 1);
+		map.lines = ft_realloc(map, count + 1);
 	}
+	map.l_num = count + 1;
+	map.l_col = (int)ft_strlen(map.lines[0]);
 	return (map);
 }
