@@ -1,4 +1,4 @@
-#include "wolf3d"
+#include "./includes/wolf3d.h"
 
 static int		ft_count_line(map)
 {

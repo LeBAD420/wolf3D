@@ -1,11 +1,4 @@
-#include "wolf3d.h"
-
-typedef struct 		s_cam
-{
-	int				pos_x;
-	int				pos_y;
-	int				angle;
-}					t_cam;
+#include "./includes/wolf3d.h"
 
 t_cam	*new_camera(int x, int y, int angle)
 {
