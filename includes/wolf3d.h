@@ -41,6 +41,18 @@ typedef struct 		s_cam
 	int				angle;
 }					t_cam;
 
+typedef struct 		s_img
+{
+	int				width;
+	int				height;
+	void			*img_ptr;
+	char			*data;
+	int				bbp;
+	int				size_line;
+	int				endian;
+
+};
+
 /*
 ** camera_fct.c
 */
