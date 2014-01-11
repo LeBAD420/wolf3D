@@ -23,38 +23,38 @@
 # define STARTANGLE 90
 # define BUFF_SIZE 8
 
-typedef struct		s_win
+typedef struct			s_win
 {
-	void			*mlx;
-	void			*win;
-	int				fd;
-	int				echap;
-}					t_win;
+	void				*mlx;
+	void				*win;
+	int					fd;
+	int					echap;
+}						t_win;
 
-typedef struct		s_map
+typedef struct			s_map
 {
-	char			**maze;
-	int				col;
-	int				row;
-	int				start_x;
-	int				start_y;
-}					t_map;
+	char				**maze;
+	int					col;
+	int					row;
+	int					start_x;
+	int					start_y;
+}						t_map;
 
-typedef struct 		s_cam
+typedef struct 			s_cam
 {
-	int				pos_x;
-	int				pos_y;
-	int				angle;
-}					t_cam;
+	int					pos_x;
+	int					pos_y;
+	float				angle;
+}						t_cam;
 
-typedef struct 		s_img
+typedef struct 			s_img
 {
-	void			*img;
-	char			*data;
-	int				bbp;
-	int				size_line;
-	int				endian;
-}					t_img;
+	void				*img;
+	char				*data;
+	int					bbp;
+	int					size_line;
+	int					endian;
+}						t_img;
 
 /*
 ** camera_fct.c
