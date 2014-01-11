@@ -23,6 +23,12 @@
 # define STARTANGLE 90
 # define BUFF_SIZE 8
 
+# define KEYECHAP 65307
+# define KEYLEFT 65361
+# define KEYUP 65362
+# define KEYRIGHT 65363
+# define KEYDOWN 65364
+
 typedef struct			s_map
 {
 	char				**maze;
@@ -70,6 +76,14 @@ int				ft_get_start_player(t_map *map);
 char			**ft_resize_maze(char **maze, int nbr);
 void			ft_read_map(int fd, t_map *map);
 int				ft_open_map(char *map_file);
+
+/*
+** move_fct.c
+*/
+void			move_up(t_win *win);
+void			move_down(t_win *win);
+void			move_left(t_win *win);
+void			move_right(t_win *win);
 
 /*
 ** detect_fct.c

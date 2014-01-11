@@ -28,10 +28,6 @@ int		main(int argc, char **argv)
 	/* Init img */
 	window->img = init_img(window);
 
-	//Fini !
-	/*if (close(window.fd) == -1)
-		ft_error("close () error");*/
-
-
+	/* Fini ! */
 	return (0);
 }
