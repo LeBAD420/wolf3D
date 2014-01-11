@@ -9,7 +9,9 @@ SRCS		= 	main.c				\
 				error_fct.c			\
 				hook_fct.c			\
 				map_fct.c			\
-				ft_get_next_line.c
+				ft_get_next_line.c	\
+				env_fct.c			\
+				img_fct.c
 
 OBJS		= $(SRCS:.c=.o)
 

@@ -4,34 +4,29 @@
 
 int		main(int argc, char **argv)
 {
-	//t_win	window;
+	t_win	*window;
 	t_cam	*cam;
 	t_map	*map;
 
-	//Check argv
+	/* Check argv */
 	if (argc > 2 || argc == 1)
 		ft_error("Too or not enough parameters in command line");
 
-	//Check map et Init Map
-	map = init_map(argv[1]);
+	/* Init Map */
+	map = ft_init_map(argv[1]);
 
+	/* Init Env */
+	window = init_env();
 
-	//Init Env
-	/*window.mlx = mlx_init();
-	window.win = mlx_new_window(window.mlx, WIN_LEN, WIN_WID, "wolf3d");
-	mlx_key_hook(window.win, ft_key_hook, &window);
-	mlx_expose_hook(window.win, ft_expose_hook, &window);
-	mlx_loop(window.mlx);*/
+	mlx_key_hook(window->win, ft_key_hook, window);
+	mlx_expose_hook(window->win, ft_expose_hook, window);
+	mlx_loop(window->mlx);
 
-	//Init camera
+	/* Init Camera */
 	cam = ft_new_camera(map->start_x, map->start_y, STARTANGLE);
 
-
-	//Calcul Img
-
-	//Draw Img
-
-	//Loop
+	/* Init img */
+	window->img = init_img(window);
 
 	//Fini !
 	/*if (close(window.fd) == -1)

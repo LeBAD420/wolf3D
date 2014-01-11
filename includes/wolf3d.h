@@ -23,14 +23,6 @@
 # define STARTANGLE 90
 # define BUFF_SIZE 8
 
-typedef struct			s_win
-{
-	void				*mlx;
-	void				*win;
-	int					fd;
-	int					echap;
-}						t_win;
-
 typedef struct			s_map
 {
 	char				**maze;
@@ -39,13 +31,6 @@ typedef struct			s_map
 	int					start_x;
 	int					start_y;
 }						t_map;
-
-typedef struct 			s_cam
-{
-	int					pos_x;
-	int					pos_y;
-	float				angle;
-}						t_cam;
 
 typedef struct 			s_img
 {
@@ -56,12 +41,26 @@ typedef struct 			s_img
 	int					endian;
 }						t_img;
 
+typedef struct			s_win
+{
+	void				*mlx;
+	void				*win;
+	t_img				*img;
+}						t_win;
+
+typedef struct 			s_cam
+{
+	int					pos_x;
+	int					pos_y;
+	float				angle;
+}						t_cam;
+
 /*
 ** camera_fct.c
 */
-t_cam	*ft_new_camera(int x, int y, int angle);
-void	ft_set_camera(t_cam *cam, int x, int y, int angle);
-void	ft_del_camera(t_cam *cam);
+t_cam			*ft_new_camera(int x, int y, int angle);
+void			ft_set_camera(t_cam *cam, int x, int y, int angle);
+void			ft_del_camera(t_cam *cam);
 
 /*
 ** map_fct.c
@@ -75,32 +74,37 @@ int				ft_open_map(char *map_file);
 /*
 ** detect_fct.c
 */
-void	ft_detect_wall(t_win window, t_cam *cam, t_map *map);
+void			ft_detect_wall(t_win window, t_cam *cam, t_map *map);
 
 /*
 ** error_fct.c
 */
-void	ft_error(char *s);
+void			ft_error(char *s);
 
 /*
 ** hook_fct.c
 */
-int		ft_key_hook(int keycode, t_win *window);
-int		ft_expose_hook(t_win *window);
-
-/*
-** read.c
-*/
-void	ft_read(t_win *window);
+int				ft_key_hook(int keycode, t_win *window);
+int				ft_expose_hook(t_win *window);
 
 /*
 ** draw.c
 */
-void	ft_draw(t_win window, t_cam *cam, t_map *map);
+void			ft_draw(t_win window, t_cam *cam, t_map *map);
 
 /*
 ** ft_get_next_line.c
 */
-int		get_next_line(int const fd, char **line);
+int				get_next_line(int const fd, char **line);
+
+/*
+** env_fct.c
+*/
+t_win			*init_env(void);
+
+/*
+** img_fct.c
+*/
+t_img			*init_img(t_win *win);
 
 #endif /* !WOLF3D_H */

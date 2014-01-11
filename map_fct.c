@@ -74,6 +74,7 @@ void			ft_read_map(int fd, t_map *map)
 	map->row = count;
 	map->col = ft_strlen(maze[0]);
 	map->maze = maze;
+	close(fd);
 }
 
 int				ft_open_map(char *map_file)
