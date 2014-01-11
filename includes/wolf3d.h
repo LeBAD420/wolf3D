@@ -11,7 +11,7 @@
 # define WIN_WID 200
 # define WIN_LEN 320
 # define FOV 60
-# define POV (int)(WIN_LEN/2)/(tanf(FOV/2))
+# define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
 # define WALL '*'
 # define PATH ' '
 # define STEP 64
@@ -43,15 +43,12 @@ typedef struct 		s_cam
 
 typedef struct 		s_img
 {
-	int				width;
-	int				height;
-	void			*img_ptr;
+	void			*img;
 	char			*data;
 	int				bbp;
 	int				size_line;
 	int				endian;
-
-};
+}					t_img;
 
 /*
 ** camera_fct.c
@@ -59,6 +56,11 @@ typedef struct 		s_img
 t_cam	*new_camera(int x, int y, int angle);
 void	set_camera(t_cam *cam, int x, int y, int angle);
 void	del_camera(t_cam *cam);
+
+/*
+** detect_fct.c
+*/
+void	ft_detect_wall(t_win window, t_cam *cam, t_map *map);
 
 /*
 ** error_fct.c
@@ -79,6 +81,6 @@ void	ft_read(t_win *window);
 /*
 ** draw.c
 */
-void	ft_draw(t_win *window, char **map);
+void	ft_draw(t_win window, t_cam *cam, t_map *map);
 
 #endif /* !WOLF3D_H */

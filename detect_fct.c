@@ -4,6 +4,8 @@ static int		ft_h_intersection(int i, int mult, t_cam *cam, t_map *map)
 {
 	int		x;
 	int		y;
+	int		x_inc;
+	int		y_inc;
 	float	va;
 
 	va = cam->angle + i * (float)FOV / WIN_LEN;
@@ -19,10 +21,12 @@ static int		ft_h_intersection(int i, int mult, t_cam *cam, t_map *map)
 	return ((int)(abs(cam->pos_x - x) / cosf(va)))
 }
 
-static int		ft_v_intersection(int i, int mult, t_cam cam, t_map map)
+static int		ft_v_intersection(int i, int mult, t_cam cam, t_map *map)
 {
 	int		x;
 	int		y;
+	int		x_inc;
+	int		y_inc;
 	float	va;
 
 	va = cam->angle + i * (float)FOV / WIN_LEN;
@@ -56,7 +60,7 @@ static int		ft_wall_distance(int i, t_cam *cam, t_map *map)
 		return (v_dist = ft_dist_correction(i, v_dist));
 }
 
-void	ft_detect_wall(t_cam *cam, t_map *map)
+void	ft_detect_wall(t_win window, t_cam *cam, t_map *map)
 {
 	int		i;
 	int		wall_dist;
@@ -65,6 +69,6 @@ void	ft_detect_wall(t_cam *cam, t_map *map)
 	while (i < WIN_LEN)
 	{
 		wall_dist = ft_wall_distance(i, cam, map);
-/*		ft_draw();
-*/	}
+		ft_draw(window, wall_dist, WIN_LEN - i);
+	}
 }
