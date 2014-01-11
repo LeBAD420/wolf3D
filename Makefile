@@ -8,27 +8,35 @@ SRCS		= 	main.c				\
 				camera_fct.c		\
 				error_fct.c			\
 				hook_fct.c			\
-				error_fct.c
+				map_fct.c			\
+				ft_get_next_line.c
 
 OBJS		= $(SRCS:.c=.o)
 
 CFLAGS		= -Wall -Werror -Wextra
 
 CLFLAGS     += -L/usr/X11/lib -lmlx -lXext -lX11
+CLFLAGS     += -L libft -lft
+LDFLAGS 	= -I $(DIR_LIBFT)/includes
+
+DIR_LIBFT	= ./libft
 
 all:		$(NAME)
 
 %.o:		%.c
-			$(CC) $(CFLAGS) -c $^ -I $(INCLUDE)
+			$(CC) $(CFLAGS) -c $^ -I $(INCLUDE) -L -lft
 
-$(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(CLFLAGS)
+$(NAME):	$(DIR_LIBFT)/libft.a $(OBJS)
+			$(CC) -o $(NAME) $(OBJS) $(CLFLAGS) $(CFLAGS) $(LDFLAGS)
 
 clean:
 			rm -rf $(OBJS)
 
 fclean:		clean
 			rm -rf $(NAME)
+
+$(DIR_LIBFT)/libft.a:
+	make  -f Makefile -C $(DIR_LIBFT)
 
 re:			fclean all
 

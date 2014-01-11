@@ -4,9 +4,13 @@
 # include <math.h>
 # include <mlx.h>
 # include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
 # include <stdio.h>
+# include "sys/types.h"
+# include "sys/uio.h"
+# include "../libft/includes/libft.h"
+
 
 # define WIN_WID 200
 # define WIN_LEN 320
@@ -14,8 +18,10 @@
 # define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
 # define WALL '*'
 # define PATH ' '
+# define STARTPLAYER 'D'
 # define STEP 64
 # define STARTANGLE 90
+# define BUFF_SIZE 8
 
 typedef struct		s_win
 {
@@ -27,9 +33,9 @@ typedef struct		s_win
 
 typedef struct		s_map
 {
-	char			**lines;
-	int				l_num;
-	int				c_num;
+	char			**maze;
+	int				col;
+	int				row;
 	int				start_x;
 	int				start_y;
 }					t_map;
@@ -53,9 +59,18 @@ typedef struct 		s_img
 /*
 ** camera_fct.c
 */
-t_cam	*new_camera(int x, int y, int angle);
-void	set_camera(t_cam *cam, int x, int y, int angle);
-void	del_camera(t_cam *cam);
+t_cam	*ft_new_camera(int x, int y, int angle);
+void	ft_set_camera(t_cam *cam, int x, int y, int angle);
+void	ft_del_camera(t_cam *cam);
+
+/*
+** map_fct.c
+*/
+t_map			*ft_init_map(char *file_map);
+int				ft_get_start_player(t_map *map);
+char			**ft_resize_maze(char **maze, int nbr);
+void			ft_read_map(int fd, t_map *map);
+int				ft_open_map(char *map_file);
 
 /*
 ** detect_fct.c
@@ -82,5 +97,10 @@ void	ft_read(t_win *window);
 ** draw.c
 */
 void	ft_draw(t_win window, t_cam *cam, t_map *map);
+
+/*
+** ft_get_next_line.c
+*/
+int		get_next_line(int const fd, char **line);
 
 #endif /* !WOLF3D_H */
