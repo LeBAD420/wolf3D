@@ -12,8 +12,8 @@
 # include "../libft/includes/libft.h"
 
 
-# define WIN_WID 600
-# define WIN_LEN 660
+# define WIN_WID 200
+# define WIN_LEN 320
 # define FOV 60
 # define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
 # define WALL '*'
@@ -28,6 +28,16 @@
 # define KEYUP 65362
 # define KEYRIGHT 65363
 # define KEYDOWN 65364
+
+# define COLOR_WHITE 0xCCCCCC
+# define COLOR_RED 0xCC0000
+# define COLOR_ORANGE 0xFF7700
+# define COLOR_YELLOW 0xCCCC00
+# define COLOR_GREEN 0x00CC00
+# define COLOR_CYAN 0x00CCCC
+# define COLOR_BLUE 0x0000CC
+# define COLOR_MAGENTA 0xCC00CC
+# define COLOR_BLACK 0x000000
 
 typedef struct			s_pos
 {
