@@ -29,9 +29,9 @@
 //CAMERA
 # define FOV 60
 # define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
-# define STARTANGLE 90
+# define STARTANGLE 90 * M_PI / 180
 # define PLAYERSTEP 20
-# define PLAYERROT 5
+# define PLAYERROT M_PI / 12
 
 //MAP
 # define WALL '*'
