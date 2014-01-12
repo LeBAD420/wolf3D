@@ -30,7 +30,7 @@
 # define FOV 60
 # define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
 # define STARTANGLE 90
-# define PLAYERSTEP 5
+# define PLAYERSTEP 20
 # define PLAYERROT 5
 
 //MAP
