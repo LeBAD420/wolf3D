@@ -12,7 +12,8 @@ SRCS		= 	main.c				\
 				ft_get_next_line.c	\
 				env_fct.c			\
 				img_fct.c			\
-				move_fct.c
+				move_fct.c			\
+				pos_fct.c
 
 OBJS		= $(SRCS:.c=.o)
 

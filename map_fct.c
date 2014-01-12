@@ -19,9 +19,7 @@ int				ft_get_start_player(t_map *map)
 {
 	t_pos		*pos;
 
-	pos = (t_pos *)malloc(sizeof(t_pos));
-	pos->x = 0;
-	pos->y = 0;
+	pos = pos_init(0, 0);
 	while (pos->y < map->row)
 	{
 		while (pos->x < map->col)
