@@ -2,13 +2,7 @@
 
 void			ft_exit(t_win *win)
 {
-	if (win)
-	{
-		free(win->mlx);
-		free(win->win);
-		img_del(win->img);
-		free(win);
-	}
+	env_del(win);
 	exit(0);
 }
 
