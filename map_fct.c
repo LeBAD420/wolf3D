@@ -11,17 +11,19 @@ t_map			*ft_init_map(char *file_map)
 			ft_error("Impossible to open file_map.");
 		map = (t_map*)malloc(sizeof(t_map));
 		map->start = (t_pos*)malloc(sizeof(t_pos));
-		ft_read_map(fd, map);
-		if (!ft_get_start_player(map))
+		ft_read_map(fd);
+		if (!ft_get_start_player())
 			ft_error("No player in this map.");
 	}
 	return (map);
 }
 
-int				ft_get_start_player(t_map *map)
+int				ft_get_start_player(void)
 {
 	t_pos		*pos;
+	t_map		*map;
 
+	map = ft_init_map(NULL);
 	pos = pos_init(0, 0);
 	while (pos->y < map->row)
 	{
@@ -60,13 +62,15 @@ char			**ft_resize_maze(char **maze, int nbr)
 	return (new_maze);
 }
 
-void			ft_read_map(int fd, t_map *map)
+void			ft_read_map(int fd)
 {
+	t_map	*map;
 	int		ret;
 	char	**maze;
 	char	*line;
 	int		count;
 
+	map = ft_init_map(NULL);
 	count = 0;
 	maze = NULL;
 	maze = (char**)malloc(sizeof(char*));
@@ -84,8 +88,11 @@ void			ft_read_map(int fd, t_map *map)
 	close(fd);
 }
 
-void			ft_del_map(t_map *map)
+void			ft_del_map(void)
 {
+	t_map	*map;
+
+	map = ft_init_map(NULL);
 	while(map->row)
 	{
 		free(map->maze[map->row]);

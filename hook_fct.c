@@ -2,10 +2,9 @@
 
 void			ft_exit(void)
 {
-	t_win	*win;
-
-	win = init_env();
-	env_del(win);
+	env_del();
+	ft_del_map();
+	ft_del_camera();
 	exit(0);
 }
 

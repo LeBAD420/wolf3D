@@ -15,8 +15,11 @@ t_win			*init_env(void)
 	return (window);
 }
 
-void			env_del(t_win *win)
+void			env_del(void)
 {
+	t_win	*win;
+
+	win = init_env();
 	if (win)
 	{
 		free(win->mlx);

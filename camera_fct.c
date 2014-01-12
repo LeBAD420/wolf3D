@@ -20,8 +20,11 @@ void			ft_set_camera(t_cam *cam, t_pos *pos, int angle)
 	cam->angle = angle;
 }
 
-void			ft_del_camera(t_cam *cam)
+void			ft_del_camera(void)
 {
+	t_cam *cam;
+
+	cam = ft_new_camera(NULL, 0);
 	pos_del(cam->pos);
 	free(cam);
 	cam = NULL;

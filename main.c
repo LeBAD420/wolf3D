@@ -25,7 +25,7 @@ int		main(int argc, char **argv)
 	mlx_key_hook(window->win, ft_key_hook, window);
 	mlx_expose_hook(window->win, ft_expose_hook, window);
 	mlx_loop(window->mlx);
-	ft_detect_wall(window, cam, map);
+	ft_detect_wall();
 	/* Display view */
 	/* Fini ! */
 	return (0);
