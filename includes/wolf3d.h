@@ -84,6 +84,8 @@ typedef struct			s_info
 	struct s_info	*next;
 }					t_info;
 
+typedef void (*t_funmove)(t_win*);
+
 /*
 ** camera_fct.c
 */
@@ -107,6 +109,7 @@ void			move_up(t_win *win);
 void			move_down(t_win *win);
 void			move_left(t_win *win);
 void			move_right(t_win *win);
+t_funmove		*init_fun_moves(void);
 
 /*
 ** detect_fct.c
