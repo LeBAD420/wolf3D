@@ -41,41 +41,41 @@
 
 typedef struct			s_pos
 {
-	int					x;
-	int					y;
+	int				x;
+	int				y;
 }						t_pos;
 
 typedef struct			s_map
 {
-	char				**maze;
-	int					col;
-	int					row;
-	t_pos				*start;
+	char			**maze;
+	int				col;
+	int				row;
+	t_pos			*start;
 }						t_map;
 
 typedef struct 			s_img
 {
-	void				*img;
-	char				*data;
-	int					bbp;
-	int					size_line;
-	int					endian;
+	void			*img;
+	char			*data;
+	int				bbp;
+	int				size_line;
+	int				endian;
 }						t_img;
 
 typedef struct			s_win
 {
-	void				*mlx;
-	void				*win;
-	t_img				*img;
+	void			*mlx;
+	void			*win;
+	t_img			*img;
 }						t_win;
 
 typedef struct			s_cam
 {
-	t_pos				*pos;
-	float				angle;
+	t_pos			*pos;
+	float			angle;
 }						t_cam;
 
-typedef struct		s_info
+typedef struct			s_info
 {
 	char			*start;
 	char			*buf;

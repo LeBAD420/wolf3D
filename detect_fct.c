@@ -41,7 +41,7 @@ static int		ft_v_intersection(int i, int m, t_cam *cam, t_map *map)
 
 static int		ft_dist_correction(int i, int dist)
 {
-	return (dist = i < 159 ? (int)(dist * cosf(30)) : (int)(dist * cosf(-30)));
+	return (dist = i < 160 ? (int)(dist * cosf(30)) : (int)(dist * cosf(-30)));
 }
 
 static int		ft_wall_distance(int i, t_cam *cam, t_map *map)
@@ -57,7 +57,7 @@ static int		ft_wall_distance(int i, t_cam *cam, t_map *map)
 		return (v_dist = ft_dist_correction(i, v_dist));
 }
 
-void	ft_detect_wall(t_win *window, t_cam *cam, t_map *map)
+void			ft_detect_wall(t_win *window, t_cam *cam, t_map *map)
 {
 	int		i;
 	int		wall_dist;
