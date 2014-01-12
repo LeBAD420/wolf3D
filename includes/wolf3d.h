@@ -29,13 +29,18 @@
 # define KEYRIGHT 65363
 # define KEYDOWN 65364
 
+typedef struct			s_pos
+{
+	int					x;
+	int					y;
+}						t_pos;
+
 typedef struct			s_map
 {
 	char				**maze;
 	int					col;
 	int					row;
-	int					start_x;
-	int					start_y;
+	t_pos				*start;
 }						t_map;
 
 typedef struct 			s_img
@@ -54,18 +59,17 @@ typedef struct			s_win
 	t_img				*img;
 }						t_win;
 
-typedef struct 			s_cam
+typedef struct			s_cam
 {
-	int					pos_x;
-	int					pos_y;
+	t_pos					*pos;
 	float				angle;
 }						t_cam;
 
 /*
 ** camera_fct.c
 */
-t_cam			*ft_new_camera(int x, int y, int angle);
-void			ft_set_camera(t_cam *cam, int x, int y, int angle);
+t_cam			*ft_new_camera(t_pos *pos, int angle);
+void			ft_set_camera(t_cam *cam, t_pos *pos, int angle);
 void			ft_del_camera(t_cam *cam);
 
 /*

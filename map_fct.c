@@ -16,25 +16,23 @@ t_map			*ft_init_map(char *file_map)
 
 int				ft_get_start_player(t_map *map)
 {
-	int			x;
-	int			y;
+	t_pos		*pos;
 
-	x = 0;
-	y = 0;
-	while (y < map->row)
+	pos->x = 0;
+	pos->y = 0;
+	while (pos->y < map->row)
 	{
-		while (x < map->col)
+		while (pos->x < map->col)
 		{
-			if (map->maze[y][x] == STARTPLAYER)
+			if (map->maze[pos->y][pos->x] == STARTPLAYER)
 			{
-				map->start_x = x;
-				map->start_y = y;
+				map->start = pos;
 				return (1);
 			}
-			x++;
+			pos->x++;
 		}
-		x = 0;
-		y++;
+		pos->x = 0;
+		pos->y++;
 	}
 	return (0);
 }
