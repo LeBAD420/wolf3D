@@ -154,6 +154,7 @@ int				get_next_line(int const fd, char **line);
 ** env_fct.c
 */
 t_win			*init_env(void);
+void			env_del(t_win *win);
 
 /*
 ** img_fct.c
