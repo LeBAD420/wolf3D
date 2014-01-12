@@ -13,8 +13,11 @@ t_cam			*ft_new_camera(t_pos *pos, int angle)
 	return (cam);
 }
 
-void			ft_set_camera(t_cam *cam, t_pos *pos, int angle)
+void			ft_set_camera(t_pos *pos, int angle)
 {
+	t_cam	*cam;
+
+	cam = ft_new_camera(NULL,0);
 	cam->pos->x = pos->x;
 	cam->pos->y = pos->y;
 	cam->angle = angle;
