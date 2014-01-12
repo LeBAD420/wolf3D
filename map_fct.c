@@ -5,7 +5,7 @@ t_map			*ft_init_map(char *file_map)
 	int			fd;
 	t_map		*map;
 
-	if (!(fd = ft_open_map(file_map)))
+	if ((fd = open(file_map, O_RDONLY) == -1))
 		ft_error("Impossible to open file_map");
 	map = (t_map*)malloc(sizeof(t_map));
 	ft_read_map(fd, map);
@@ -50,6 +50,7 @@ char			**ft_resize_maze(char **maze, int nbr)
 	new_maze = (char**)malloc(sizeof(char*) * (nbr));
 	while (i < nbr - 1)
 	{
+		new_maze[i] = (char*)malloc(ft_strlen(maze[i]));
 		new_maze[i] = maze[i];
 		i++;
 	}
@@ -77,10 +78,14 @@ void			ft_read_map(int fd, t_map *map)
 	close(fd);
 }
 
-int				ft_open_map(char *map_file)
+void			ft_del_map(t_map *map)
 {
-	int		fd;
-
-	fd = open(map_file, O_RDONLY);
-    return (fd == -1 ? 0 : fd);
+	while(map->row)
+	{
+		free(map->maze[map->row]);
+		map->row--;
+	}
+	map->maze = NULL;
+	free(map);
+	map = NULL;
 }

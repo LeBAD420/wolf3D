@@ -1,7 +1,5 @@
 #include "./includes/wolf3d.h"
 
-
-
 int		main(int argc, char **argv)
 {
 	t_win	*window;
