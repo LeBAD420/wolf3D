@@ -29,7 +29,6 @@ int		ft_key_hook(int keycode, t_win *window)
 
 int		ft_expose_hook(t_win *window)
 {
-	/* On affiche l'img */
 	mlx_put_image_to_window(window->mlx, window->win, window->img->img, 0, 0);
 	return (0);
 }

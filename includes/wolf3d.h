@@ -29,11 +29,6 @@
 # define KEYRIGHT 65363
 # define KEYDOWN 65364
 
-# define MVUP 0
-# define MVDOWN 1
-# define MVLEFT 2
-# define MVRIGHT 3
-
 typedef struct			s_pos
 {
 	int					x;
@@ -104,7 +99,7 @@ void			move_up(t_win *win);
 void			move_down(t_win *win);
 void			move_left(t_win *win);
 void			move_right(t_win *win);
-t_funmove		*init_moves(void);
+t_funmove		*init_fun_moves(void);
 
 /*
 ** detect_fct.c
