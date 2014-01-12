@@ -19,7 +19,6 @@ int		main(int argc, char **argv)
 	mlx_expose_hook(window->win, ft_expose_hook, window);
 	mlx_loop(window->mlx);
 	/* Init Camera */
-write(1, "Yay.", 4);
 	cam = ft_new_camera(map->start, STARTANGLE);
 
 	/* Init img */
