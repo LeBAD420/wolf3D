@@ -101,7 +101,7 @@ void			move_right(t_win *win);
 /*
 ** detect_fct.c
 */
-void			ft_detect_wall(t_win window, t_cam *cam, t_map *map);
+void			ft_detect_wall(t_win *window, t_cam *cam, t_map *map);
 
 /*
 ** error_fct.c
@@ -117,7 +117,7 @@ int				ft_expose_hook(t_win *window);
 /*
 ** draw.c
 */
-void			ft_draw(t_win window, t_cam *cam, t_map *map);
+void			ft_draw(t_win *window, int wall_dist, int pix);
 
 /*
 ** ft_get_next_line.c

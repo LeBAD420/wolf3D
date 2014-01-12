@@ -13,7 +13,9 @@ SRCS		= 	main.c				\
 				env_fct.c			\
 				img_fct.c			\
 				move_fct.c			\
-				pos_fct.c
+				pos_fct.c			\
+				detect_fct.c		\
+				draw_fct.c			\
 
 OBJS		= $(SRCS:.c=.o)
 
