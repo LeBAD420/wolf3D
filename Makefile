@@ -16,7 +16,7 @@ SRCS		= 	main.c				\
 
 OBJS		= $(SRCS:.c=.o)
 
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -g
 
 CLFLAGS     += -L/usr/X11/lib -lmlx -lXext -lX11
 CLFLAGS     += -L libft -lft

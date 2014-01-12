@@ -65,6 +65,15 @@ typedef struct			s_cam
 	float				angle;
 }						t_cam;
 
+typedef struct		s_info
+{
+	char			*start;
+	char			*buf;
+	int				fd;
+	int				offset;
+	struct s_info	*next;
+}					t_info;
+
 /*
 ** camera_fct.c
 */

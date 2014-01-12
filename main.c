@@ -15,7 +15,6 @@ int		main(int argc, char **argv)
 
 	/* Init Env */
 	window = init_env();
-
 	mlx_key_hook(window->win, ft_key_hook, window);
 	mlx_expose_hook(window->win, ft_expose_hook, window);
 	mlx_loop(window->mlx);
@@ -26,6 +25,7 @@ int		main(int argc, char **argv)
 	/* Init img */
 	window->img = init_img(window);
 
+	write(1, "Hello", 5);
 	/* Fini ! */
 	return (0);
 }

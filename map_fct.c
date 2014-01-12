@@ -5,7 +5,7 @@ t_map			*ft_init_map(char *file_map)
 	int			fd;
 	t_map		*map;
 
-	if ((fd = open(file_map, O_RDONLY) == -1))
+	if ((fd = open(file_map, O_RDONLY)) == -1)
 		ft_error("Impossible to open file_map");
 	map = (t_map*)malloc(sizeof(t_map));
 	map->start = (t_pos*)malloc(sizeof(t_pos));
@@ -19,6 +19,7 @@ int				ft_get_start_player(t_map *map)
 {
 	t_pos		*pos;
 
+	pos = (t_pos *)malloc(sizeof(t_pos));
 	pos->x = 0;
 	pos->y = 0;
 	while (pos->y < map->row)
