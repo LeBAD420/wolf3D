@@ -61,7 +61,7 @@ typedef struct			s_win
 
 typedef struct			s_cam
 {
-	t_pos					*pos;
+	t_pos				*pos;
 	float				angle;
 }						t_cam;
 
@@ -133,5 +133,11 @@ t_win			*init_env(void);
 ** img_fct.c
 */
 t_img			*init_img(t_win *win);
+
+/*
+** pos_fct.c
+*/
+t_pos			*pos_init(int x, int y);
+void			pos_del(t_pos *pos);
 
 #endif /* !WOLF3D_H */
