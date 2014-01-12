@@ -13,3 +13,14 @@ t_win			*init_env(void)
 	}
 	return (window);
 }
+
+void			env_del(t_win *win)
+{
+	if (win)
+	{
+		free(win->mlx);
+		free(win->win);
+		img_del(win->img);
+		free(win);
+	}
+}
