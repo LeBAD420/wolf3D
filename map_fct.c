@@ -2,16 +2,19 @@
 
 t_map			*ft_init_map(char *file_map)
 {
-	int			fd;
-	t_map		*map;
+	int				fd;
+	static t_map	*map = NULL;
 
-	if ((fd = open(file_map, O_RDONLY)) == -1)
-		ft_error("Impossible to open file_map");
-	map = (t_map*)malloc(sizeof(t_map));
-	map->start = (t_pos*)malloc(sizeof(t_pos));
-	ft_read_map(fd, map);
-	if (!ft_get_start_player(map))
-		ft_error("No player in this map");
+	if (map == NULL)
+	{
+		if ((fd = open(file_map, O_RDONLY)) == -1)
+			ft_error("Impossible to open file_map");
+		map = (t_map*)malloc(sizeof(t_map));
+		map->start = (t_pos*)malloc(sizeof(t_pos));
+		ft_read_map(fd, map);
+		if (!ft_get_start_player(map))
+			ft_error("No player in this map");
+	}
 	return (map);
 }
 
