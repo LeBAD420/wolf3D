@@ -56,11 +56,6 @@ int				ft_wall_distance(int i)
 {
 	int		h_dist;
 	int		v_dist;
-	t_map	*map;
-	t_cam	*cam;
-
-	map = ft_init_map(NULL);
-	cam = ft_new_camera(NULL, 0);
 
 	h_dist = ft_h_intersection(i, 0);
 	v_dist = ft_v_intersection(i, 0);

@@ -10,7 +10,7 @@ t_win			*init_env(void)
 			ft_error("Insuffisant memory.");
 		window->mlx = mlx_init();
 		window->win = mlx_new_window(window->mlx, WIN_LEN, WIN_WID, "Wolf 3D");
-		window->img = init_img(window);
+		window->img = init_img();
 	}
 	return (window);
 }

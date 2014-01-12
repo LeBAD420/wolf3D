@@ -7,7 +7,7 @@ void	ft_draw_wall(int h_wall, int x, int y)
 	window = init_env();
 	while (y < WIN_LEN / 2 + h_wall / 2)
 	{
-		mlx_put_pixel_to_image(window, x, y, COLOR_FLOOR);
+		mlx_put_pixel_to_image(x, y, COLOR_FLOOR);
 		y++;
 	}
 }
@@ -19,7 +19,7 @@ void	ft_draw_floor(int x, int y)
 	window = init_env();
 	while (y < WIN_LEN)
 	{
-		mlx_put_pixel_to_image(window, x, y, COLOR_FLOOR);
+		mlx_put_pixel_to_image(x, y, COLOR_FLOOR);
 		y++;
 	}
 }
@@ -31,7 +31,7 @@ void	ft_draw_ceiling(int x, int y)
 	window = init_env();
 	while (y > 0)
 	{
-		mlx_put_pixel_to_image(window, x, y, COLOR_CEILING);
+		mlx_put_pixel_to_image(x, y, COLOR_CEILING);
 		y--;
 	}
 }
@@ -63,11 +63,13 @@ void	ft_draw_img()
 	}
 }
 
-void	mlx_put_pixel_to_image(t_win *win, int x, int y, int color)
+void	mlx_put_pixel_to_image(int x, int y, int color)
 {
 	unsigned int	new_color;
 	int				i;
+	t_win			*win;
 
+	win = init_env();
 	new_color = mlx_get_color_value(win->mlx, color);
 	i = x * 4 + y * win->img->size_line;
 	win->img->data[i] = new_color % 256;

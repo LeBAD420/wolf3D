@@ -7,9 +7,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include "sys/types.h"
-# include "sys/uio.h"
-# include "../libft/includes/libft.h"
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <../libft/includes/libft.h>
 
 //COLORS
 # define COLOR_WHITE 0xCCCCCC
@@ -97,7 +97,7 @@ typedef struct			s_info
 	struct s_info	*next;
 }					t_info;
 
-typedef void (*t_funmove)(t_win*);
+typedef void (*t_funmove)(void);
 
 /*
 ** camera_fct.c
@@ -110,9 +110,9 @@ void			ft_del_camera(void);
 ** map_fct.c
 */
 t_map			*ft_init_map(char *file_map);
-int				ft_get_start_player(t_map *map);
+int				ft_get_start_player(void);
 char			**ft_resize_maze(char **maze, int nbr);
-void			ft_read_map(int fd, t_map *map);
+void			ft_read_map(int fd);
 void			ft_del_map(void);
 
 /*
@@ -138,7 +138,7 @@ void			ft_error(char *s);
 ** hook_fct.c
 */
 int				ft_key_hook(int keycode);
-int				ft_expose_hook(t_win *window);
+int				ft_expose_hook(void);
 
 /*
 ** draw.c
@@ -147,7 +147,7 @@ void			ft_draw_wall(int h_wall, int x, int y);
 void			ft_draw_floor(int x, int y);
 void			ft_draw_ceiling(int x, int y);
 void			ft_draw_img();
-void			mlx_put_pixel_to_image(t_win *win, int x, int y, int color);
+void			mlx_put_pixel_to_image(int x, int y, int color);
 
 /*
 ** ft_get_next_line.c
@@ -163,7 +163,7 @@ void			env_del(void);
 /*
 ** img_fct.c
 */
-t_img			*init_img(t_win *win);
+t_img			*init_img(void);
 void			img_del(t_img *img);
 
 /*
