@@ -52,7 +52,7 @@ static int		ft_dist_correction(int i, int dist)
 	return (dist = i < 160 ? (int)(dist * cosf(30)) : (int)(dist * cosf(-30)));
 }
 
-static int		ft_wall_distance(int i)
+int				ft_wall_distance(int i)
 {
 	int		h_dist;
 	int		v_dist;
@@ -68,23 +68,4 @@ static int		ft_wall_distance(int i)
 		return (h_dist = ft_dist_correction(i, h_dist));
 	else
 		return (v_dist = ft_dist_correction(i, v_dist));
-}
-
-void			ft_detect_wall(void)
-{
-	int		i;
-	int		wall_dist;
-	t_win	*window;
-	t_map	*map;
-	t_cam	*cam;
-
-	map = ft_init_map(NULL);
-	cam = ft_new_camera(NULL, 0);
-	window = init_env();
-	i = 0;
-	while (i < WIN_LEN)
-	{
-		wall_dist = ft_wall_distance(i);
-		ft_draw(window, wall_dist, WIN_LEN - i);
-	}
 }

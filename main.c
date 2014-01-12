@@ -9,13 +9,10 @@ int		main(int argc, char **argv)
 	/* Check argv */
 	if (argc > 2 || argc == 1)
 		ft_error("Too or not enough parameters in command line");
-
 	/* Init Map */
 	map = ft_init_map(argv[1]);
-
 	/* Init Env */
 	window = init_env();
-
 	/* Init Camera */
 	cam = ft_new_camera(map->start, STARTANGLE);
 
@@ -24,8 +21,11 @@ int		main(int argc, char **argv)
 
 	mlx_key_hook(window->win, ft_key_hook, window);
 	mlx_expose_hook(window->win, ft_expose_hook, window);
+	ft_draw_img();
+	mlx_put_image_to_window(window->mlx, window->win, window->img->img, 0, 0);
 	mlx_loop(window->mlx);
-	ft_detect_wall();
+
+
 	/* Display view */
 	/* Fini ! */
 	return (0);

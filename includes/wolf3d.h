@@ -103,16 +103,16 @@ typedef void (*t_funmove)(t_win*);
 ** camera_fct.c
 */
 t_cam			*ft_new_camera(t_pos *pos, int angle);
-void			ft_set_camera(t_cam *cam, t_pos *pos, int angle);
+void			ft_set_camera(t_pos *pos, int angle);
 void			ft_del_camera(void);
 
 /*
 ** map_fct.c
 */
 t_map			*ft_init_map(char *file_map);
-int				ft_get_start_player(void);
+int				ft_get_start_player(t_map *map);
 char			**ft_resize_maze(char **maze, int nbr);
-void			ft_read_map(int fd);
+void			ft_read_map(int fd, t_map *map);
 void			ft_del_map(void);
 
 /*
@@ -127,7 +127,7 @@ t_funmove		*init_fun_moves(void);
 /*
 ** detect_fct.c
 */
-void			ft_detect_wall(void);
+int				ft_wall_distance(int i);
 
 /*
 ** error_fct.c
@@ -143,7 +143,11 @@ int				ft_expose_hook(t_win *window);
 /*
 ** draw.c
 */
-void			ft_draw(t_win *window, int wall_dist, int pix);
+void			ft_draw_wall(int h_wall, int x, int y);
+void			ft_draw_floor(int x, int y);
+void			ft_draw_ceiling(int x, int y);
+void			ft_draw_img();
+void			mlx_put_pixel_to_image(t_win *win, int x, int y, int color);
 
 /*
 ** ft_get_next_line.c
