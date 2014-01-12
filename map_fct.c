@@ -8,12 +8,12 @@ t_map			*ft_init_map(char *file_map)
 	if (map == NULL)
 	{
 		if ((fd = open(file_map, O_RDONLY)) == -1)
-			ft_error("Impossible to open file_map");
+			ft_error("Impossible to open file_map.");
 		map = (t_map*)malloc(sizeof(t_map));
 		map->start = (t_pos*)malloc(sizeof(t_pos));
 		ft_read_map(fd, map);
 		if (!ft_get_start_player(map))
-			ft_error("No player in this map");
+			ft_error("No player in this map.");
 	}
 	return (map);
 }
@@ -53,15 +53,16 @@ char			**ft_resize_maze(char **maze, int nbr)
 	new_maze = (char**)malloc(sizeof(char*) * (nbr));
 	while (i < nbr - 1)
 	{
-		new_maze[i] = (char*)malloc(ft_strlen(maze[i]));
 		new_maze[i] = maze[i];
 		i++;
 	}
+	new_maze[i] = (char*)malloc(ft_strlen(maze[i]));
 	return (new_maze);
 }
 
 void			ft_read_map(int fd, t_map *map)
 {
+	int		ret;
 	char	**maze;
 	char	*line;
 	int		count;
@@ -69,12 +70,14 @@ void			ft_read_map(int fd, t_map *map)
 	count = 0;
 	maze = NULL;
 	maze = (char**)malloc(sizeof(char*));
-	while (get_next_line(fd, &line) > 0)
+	while ((ret == get_next_line(fd, &line)) > 0)
 	{
 		maze = ft_resize_maze(maze, count + 1);
 		maze[count] = ft_strdup(line);
 		count++;
 	}
+	if (ret == -1)
+		ft_error("Reading error.");
 	map->row = count;
 	map->col = ft_strlen(maze[0]);
 	map->maze = maze;
