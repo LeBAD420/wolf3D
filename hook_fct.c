@@ -1,9 +1,21 @@
 #include "./includes/wolf3d.h"
 
+void			ft_exit(t_win *win)
+{
+	if (win)
+	{
+		free(win->mlx);
+		free(win->win);
+		img_del(win->img);
+		free(win);
+	}
+	exit(0);
+}
+
 int		ft_key_hook(int keycode, t_win *window)
 {
 	if (keycode == KEYECHAP)
-		exit(0);
+		ft_exit(window);
 	if (keycode == KEYUP)
 		move_up(window);
 	if (keycode == KEYDOWN)

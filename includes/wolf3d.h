@@ -12,8 +12,8 @@
 # include "../libft/includes/libft.h"
 
 
-# define WIN_WID 1200
-# define WIN_LEN 1320
+# define WIN_WID 600
+# define WIN_LEN 660
 # define FOV 60
 # define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
 # define WALL '*'
@@ -133,6 +133,7 @@ t_win			*init_env(void);
 ** img_fct.c
 */
 t_img			*init_img(t_win *win);
+void			img_del(t_img *img);
 
 /*
 ** pos_fct.c
