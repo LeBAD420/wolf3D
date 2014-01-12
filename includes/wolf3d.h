@@ -11,24 +11,7 @@
 # include "sys/uio.h"
 # include "../libft/includes/libft.h"
 
-
-# define WIN_WID 200
-# define WIN_LEN 320
-# define FOV 60
-# define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
-# define WALL '*'
-# define PATH ' '
-# define STARTPLAYER 'D'
-# define STEP 64
-# define STARTANGLE 90
-# define BUFF_SIZE 8
-
-# define KEYECHAP 65307
-# define KEYLEFT 65361
-# define KEYUP 65362
-# define KEYRIGHT 65363
-# define KEYDOWN 65364
-
+//COLORS
 # define COLOR_WHITE 0xCCCCCC
 # define COLOR_RED 0xCC0000
 # define COLOR_ORANGE 0xFF7700
@@ -38,6 +21,36 @@
 # define COLOR_BLUE 0x0000CC
 # define COLOR_MAGENTA 0xCC00CC
 # define COLOR_BLACK 0x000000
+
+//ENV
+# define WIN_WID 200
+# define WIN_LEN 320
+
+//CAMERA
+# define FOV 60
+# define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
+# define STARTANGLE 90
+# define PLAYERSTEP 5
+# define PLAYERROT 5
+
+//MAP
+# define WALL '*'
+# define PATH ' '
+# define STARTPLAYER 'D'
+# define STEP 64
+# define COLOR_CEILING COLOR_CYAN
+# define COLOR_FLOOR COLOR_WHITE
+# define COLOR_WALL COLOR_BLUE
+
+//GETNEXTLINE
+# define BUFF_SIZE 8
+
+//KEY_HOOK
+# define KEYECHAP 65307
+# define KEYLEFT 65361
+# define KEYUP 65362
+# define KEYRIGHT 65363
+# define KEYDOWN 65364
 
 typedef struct			s_pos
 {
