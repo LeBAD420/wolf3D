@@ -25,7 +25,9 @@ int		main(int argc, char **argv)
 	/* Init img */
 	window->img = init_img(window);
 
-	write(1, "Hello", 5);
+	/* Display view */
+	display_view(window, map, cam);
+
 	/* Fini ! */
 	return (0);
 }

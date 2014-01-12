@@ -12,8 +12,8 @@
 # include "../libft/includes/libft.h"
 
 
-# define WIN_WID 200
-# define WIN_LEN 320
+# define WIN_WID 1200
+# define WIN_LEN 1320
 # define FOV 60
 # define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
 # define WALL '*'
