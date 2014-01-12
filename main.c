@@ -15,17 +15,18 @@ int		main(int argc, char **argv)
 
 	/* Init Env */
 	window = init_env();
-	mlx_key_hook(window->win, ft_key_hook, window);
-	mlx_expose_hook(window->win, ft_expose_hook, window);
-	mlx_loop(window->mlx);
+
 	/* Init Camera */
 	cam = ft_new_camera(map->start, STARTANGLE);
 
 	/* Init img */
 	window->img = init_img(window);
 
+	mlx_key_hook(window->win, ft_key_hook, window);
+	mlx_expose_hook(window->win, ft_expose_hook, window);
+	mlx_loop(window->mlx);
+	ft_detect_wall(window, cam, map);
 	/* Display view */
-
 	/* Fini ! */
 	return (0);
 }

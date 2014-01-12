@@ -2,11 +2,14 @@
 
 t_cam			*ft_new_camera(t_pos *pos, int angle)
 {
-	t_cam	*cam;
+	static t_cam	*cam = NULL;
 
-	cam = (t_cam*)malloc(sizeof(t_cam));
-	cam->pos = pos_init(pos->x, pos->y);
-	cam->angle = angle;
+	if (cam == NULL)
+	{
+		cam = (t_cam*)malloc(sizeof(t_cam));
+		cam->pos = pos_init(pos->x, pos->y);
+		cam->angle = angle;
+	}
 	return (cam);
 }
 
