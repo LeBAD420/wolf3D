@@ -118,10 +118,10 @@ int				ft_open_map(char *map_file);
 /*
 ** move_fct.c
 */
-void			move_up(t_win *win);
-void			move_down(t_win *win);
-void			move_left(t_win *win);
-void			move_right(t_win *win);
+void			move_up(void);
+void			move_down(void);
+void			move_left(void);
+void			move_right(void);
 t_funmove		*init_fun_moves(void);
 
 /*
@@ -137,7 +137,7 @@ void			ft_error(char *s);
 /*
 ** hook_fct.c
 */
-int				ft_key_hook(int keycode, t_win *window);
+int				ft_key_hook(int keycode);
 int				ft_expose_hook(t_win *window);
 
 /*

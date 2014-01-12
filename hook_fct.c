@@ -1,23 +1,27 @@
 #include "./includes/wolf3d.h"
 
-void			ft_exit(t_win *win)
+void			ft_exit(void)
 {
+	t_win	*win;
+
+	win = init_env();
 	env_del(win);
 	exit(0);
 }
 
-int		ft_key_hook(int keycode, t_win *window)
+int		ft_key_hook(int keycode)
 {
 	if (keycode == KEYECHAP)
-		ft_exit(window);
+		ft_exit();
 	if (keycode == KEYUP)
-		move_up(window);
+		move_up();
 	if (keycode == KEYDOWN)
-		move_down(window);
+		move_down();
 	if (keycode == KEYLEFT)
-		move_left(window);
+		move_left();
 	if (keycode == KEYRIGHT)
-		move_right(window);
+		move_right();
+	//ft_draw_img();
 	return (0);
 }
 
