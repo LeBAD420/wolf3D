@@ -27,9 +27,10 @@
 # define WIN_LEN 320
 
 //CAMERA
-# define FOV 60
-# define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
-# define STARTANGLE 90 * M_PI / 180
+# define FOV M_PI / 3
+# define POV 277
+//# define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
+# define STARTANGLE (float)M_PI / 2
 # define PLAYERSTEP 20
 # define PLAYERROT M_PI / 12
 
@@ -39,7 +40,7 @@
 # define STARTPLAYER 'D'
 # define STEP 64
 # define COLOR_CEILING COLOR_CYAN
-# define COLOR_FLOOR COLOR_WHITE
+# define COLOR_FLOOR COLOR_RED
 # define COLOR_WALL COLOR_BLUE
 
 //GETNEXTLINE
@@ -88,22 +89,11 @@ typedef struct			s_cam
 	float			angle;
 }						t_cam;
 
-typedef struct			s_info
-{
-	char			*start;
-	char			*buf;
-	int				fd;
-	int				offset;
-	struct s_info	*next;
-}					t_info;
-
-typedef void (*t_funmove)(void);
-
 /*
 ** camera_fct.c
 */
-t_cam			*ft_new_camera(t_pos *pos, int angle);
-void			ft_set_camera(t_pos *pos, int angle);
+t_cam			*ft_new_camera(t_pos *pos, float angle);
+void			ft_set_camera(t_pos *pos, float angle);
 void			ft_del_camera(void);
 
 /*
@@ -122,7 +112,6 @@ void			move_up(void);
 void			move_down(void);
 void			move_left(void);
 void			move_right(void);
-t_funmove		*init_fun_moves(void);
 
 /*
 ** detect_fct.c

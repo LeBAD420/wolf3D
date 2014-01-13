@@ -5,9 +5,9 @@ void	ft_draw_wall(int h_wall, int x, int y)
 	t_win	*window;
 
 	window = init_env();
-	while (y < WIN_LEN / 2 + h_wall / 2)
+	while (y < WIN_WID / 2 + h_wall / 2 - 1)
 	{
-		mlx_put_pixel_to_image(x, y, COLOR_FLOOR);
+		mlx_put_pixel_to_image(x, y, COLOR_WALL);
 		y++;
 	}
 }
@@ -17,7 +17,7 @@ void	ft_draw_floor(int x, int y)
 	t_win	*window;
 
 	window = init_env();
-	while (y < WIN_LEN)
+	while (y < WIN_WID - 1)
 	{
 		mlx_put_pixel_to_image(x, y, COLOR_FLOOR);
 		y++;
@@ -44,21 +44,23 @@ void	ft_draw_img()
 	int		wall_dist;
 
 	x = 0;
-	while (x < WIN_LEN)
+	while (x < WIN_LEN - 1)
 	{
+		printf("x = %d\n", x);
 		wall_dist = ft_wall_distance(x);
 		printf("wall_dist->%d\n", wall_dist);
-		wall_height = (STEP / wall_dist) * POV;
+		wall_height = (int)(((float)STEP / wall_dist) * POV);
+		printf("hauteur a l ecran = %d\n", wall_height);
 		y = (WIN_WID / 2) - 1 - (wall_height / 2);
 
 		/* on dessine le plafond */
 		ft_draw_ceiling(x, y);
 
 		/* on dessine le mur */
-		ft_draw_wall(wall_height, x, WIN_LEN / 2 - wall_height / 2);
+		ft_draw_wall(wall_height, WIN_LEN - 1 - x, y);
 
 		/* on dessine le floor */
-		ft_draw_floor(x, y);
+		ft_draw_floor(x, WIN_WID / 2 + wall_height / 2 - 1);
 		x++;
 
 	}

@@ -1,6 +1,6 @@
 #include "./includes/wolf3d.h"
 
-t_cam			*ft_new_camera(t_pos *pos, int angle)
+t_cam			*ft_new_camera(t_pos *pos, float angle)
 {
 	static t_cam	*cam = NULL;
 
@@ -13,7 +13,7 @@ t_cam			*ft_new_camera(t_pos *pos, int angle)
 	return (cam);
 }
 
-void			ft_set_camera(t_pos *pos, int angle)
+void			ft_set_camera(t_pos *pos, float angle)
 {
 	t_cam	*cam;
 
