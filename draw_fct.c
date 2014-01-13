@@ -47,6 +47,7 @@ void	ft_draw_img()
 	while (x < WIN_LEN)
 	{
 		wall_dist = ft_wall_distance(x);
+		printf("wall_dist->%d\n", wall_dist);
 		wall_height = (STEP / wall_dist) * POV;
 		y = (WIN_WID / 2) - 1 - (wall_height / 2);
 
