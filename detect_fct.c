@@ -1,6 +1,6 @@
 #include "wolf3d.h"
 
-static int		ft_h_intersection(int i, int mult, t_cam *cam, t_map *map)
+static int		ft_h_intersection(int i, int mult, t_win *window)
 {
 	int		x;
 	int		y;
@@ -8,20 +8,27 @@ static int		ft_h_intersection(int i, int mult, t_cam *cam, t_map *map)
 	int		y_inc;
 	float	va;
 
-	va = cam->angle + i * (float)FOV / WIN_LEN;
+	x = window->cam->pos_x;
+	y = window->cam->pos_y;
+	va = window->cam->angle - PI / 6 + i * (float)FOV / WIN_LEN;
 	x_inc = (int)(STEP / tanf(va));
 	y_inc = STEP;
-	if (va >= 0 && va < 180)
-		y = (cam->pos_y / STEP) * STEP - 1 - mult * STEP;
-	else if (va >= 180 && va < 360)
-		y = (cam->pos_y / STEP) * STEP + STEP - 1 + mult * STEP;
-	x = cam->pos_x + (int)((cam->pos_y - y) / tanf(va)) + mult * STEP;
-	if (map->lines[y / STEP][x / STEP] == PATH)
-		ft_h_intersection(i, mult + 1, cam, map);
-	return ((int)(abs(cam->pos_x - x) / cosf(va)))
+	while (window->map->lines[y / STEP][x / STEP] == PATH)
+	{
+		if (va >= 0 && va < PI)
+			y = (window->cam->pos_y / STEP) * STEP - 1 - mult * STEP;
+		else if (va >= PI && va < 2 * PI)
+			y = (window->cam->pos_y / STEP) * STEP + STEP - 1 + mult * STEP;
+		if ((va >= 3 * PI / 2 && va < 2 * PI) || (va >= 0 && va < PI / 2))
+            x = window->cam->pos_x + (int)((window->cam->pos_y - y) / tanf(va)) + mult * x_inc;
+        else if ((va >= PI / 2 && va < 3 * PI / 2))
+			x = window->cam->pos_x + (int)((window->cam->pos_y - y) / tanf(va)) - mult * x_inc;
+		mult++;
+	}
+	return ((int)(abs((window->cam->pos_x - x) / cosf(va))));
 }
 
-static int		ft_v_intersection(int i, int mult, t_cam cam, t_map *map)
+static int		ft_v_intersection(int i, int mult, t_win *window)
 {
 	int		x;
 	int		y;
@@ -29,38 +36,47 @@ static int		ft_v_intersection(int i, int mult, t_cam cam, t_map *map)
 	int		y_inc;
 	float	va;
 
-	va = cam->angle + i * (float)FOV / WIN_LEN;
+	x = window->cam->pos_x;
+	y = window->cam->pos_y;
+	va = window->cam->angle - PI / 6 + i * (float)FOV / WIN_LEN;
 	x_inc = STEP;
 	y_inc = (int)(STEP / tanf(va));
-	if ((va >= 270 && va < 360) || (va >= 0 && va < 90))
-		x = (cam->pos_x / STEP) * STEP + STEP - 1 + mult * x_inc;
-	else if ((va >= 90 && va < 180) || (va >= 180 && va < 270))
-		x = (cam->pos_x / STEP) * STEP - 1 - mult * x_inc;
-	y = cam->pos_y + (int)((cam.pos_x - x) / tanf(va)) + mult * y_inc;
-	if (map->lines[y / STEP][x / STEP] == PATH)
-		ft_v_intersection(i, mult + 1, cam, map);
-	return (int(abs(cam->pos_x - x) / cosf(va)));
+	while (window->map->lines[y / STEP][x / STEP] == PATH)
+	{
+		if ((va >= 3 * PI / 2 && va < 2 * PI) || (va >= 0 && va < PI / 2))
+			x = (window->cam->pos_x / STEP) * STEP + STEP - 1 + mult * x_inc;
+		else if ((va >= PI / 2 && va < 3 * PI / 2))
+			x = (window->cam->pos_x / STEP) * STEP - 1 - mult * x_inc;
+		if (va >= 0 && va < PI)
+            y = window->cam->pos_y + (int)((window->cam->pos_x - x) / tanf(va)) - mult * y_inc;
+        else if (va >= PI && va < 2 * PI)
+			y = window->cam->pos_y + (int)((window->cam->pos_x - x) / tanf(va)) + mult * y_inc;
+		mult++;
+	}
+	return ((int)(abs((window->cam->pos_x - x) / cosf(va))));
 }
 
-static int		ft_dist_corretion(int i, int dist)
+static int		ft_dist_correction(int i, int dist)
 {
-	return (dist = i < 159 ? (int)(dist * cosf(30)) : (int)(dist * cosf(-30)));
+	return (dist = i < WIN_LEN - 1 ? (int)(dist * cosf(-PI / 6)) : (int)(dist * cosf(PI / 6)));
 }
 
-static int		ft_wall_distance(int i, t_cam *cam, t_map *map)
+int		ft_wall_distance(int i, t_win *window)
 {
 	int		h_dist;
 	int		v_dist;
 
-	h_dist = ft_h_intersection(i, 0, cam, map);
-	v_dist = ft_v_intersection(i, 0, cam, map);
+	h_dist = ft_h_intersection(i, 0, window);
+	printf("h_dist = %d\n", h_dist);
+	v_dist = ft_v_intersection(i, 0, window);
+	printf("v_dist = %d\n", v_dist);
 	if (h_dist <= v_dist)
 		return (h_dist = ft_dist_correction(i, h_dist));
 	else
 		return (v_dist = ft_dist_correction(i, v_dist));
 }
 
-void	ft_detect_wall(t_win window, t_cam *cam, t_map *map)
+void	ft_detect_wall(t_win *window)
 {
 	int		i;
 	int		wall_dist;
@@ -68,7 +84,8 @@ void	ft_detect_wall(t_win window, t_cam *cam, t_map *map)
 	i = 0;
 	while (i < WIN_LEN)
 	{
-		wall_dist = ft_wall_distance(i, cam, map);
+		wall_dist = ft_wall_distance(i, window);
 		ft_draw(window, wall_dist, WIN_LEN - i);
+		i++;
 	}
 }
