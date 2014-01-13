@@ -1,25 +1,34 @@
 #include "./includes/wolf3d.h"
 
-t_cam	*new_camera(int x, int y, int angle)
+t_cam			*ft_new_camera(t_pos *pos, int angle)
 {
-	t_cam	*cam;
+	static t_cam	*cam = NULL;
 
-	cam = (t_cam*)malloc(sizeof(t_cam));
-	cam->pos_x = x;
-	cam->pos_y = y;
-	cam->angle = angle;
+	if (cam == NULL)
+	{
+		cam = (t_cam*)malloc(sizeof(t_cam));
+		cam->pos = pos_init(pos->x, pos->y);
+		cam->angle = angle;
+	}
 	return (cam);
 }
 
-void	set_camera(t_cam *cam, int x, int y, int angle)
+void			ft_set_camera(t_pos *pos, int angle)
 {
-	(cam)->pos_x = x;
-	(cam)->pos_y = y;
-	(cam)->angle = angle;
+	t_cam	*cam;
+
+	cam = ft_new_camera(NULL,0);
+	cam->pos->x = pos->x;
+	cam->pos->y = pos->y;
+	cam->angle = angle;
 }
 
-void	del_camera(t_cam *cam)
+void			ft_del_camera(void)
 {
+	t_cam *cam;
+
+	cam = ft_new_camera(NULL, 0);
+	pos_del(cam->pos);
 	free(cam);
 	cam = NULL;
 }

@@ -1,20 +1,34 @@
 #include "./includes/wolf3d.h"
 
-int		ft_key_hook(int keycode, t_win *window)
+void			ft_exit(void)
 {
-	window->echap = 65307;
-	if (keycode == window->echap)
-	{
-		if (close(window->fd) == -1)
-			ft_error("close () error");
-		exit(0);
-	}
+	env_del();
+	ft_del_map();
+	ft_del_camera();
+	exit(0);
+}
+
+int		ft_key_hook(int keycode)
+{
+	if (keycode == KEYECHAP)
+		ft_exit();
+	if (keycode == KEYUP)
+		move_up();
+	if (keycode == KEYDOWN)
+		move_down();
+	if (keycode == KEYLEFT)
+		move_left();
+	if (keycode == KEYRIGHT)
+		move_right();
+	//ft_draw_img();
 	return (0);
 }
 
-int		ft_expose_hook(t_win *window)
+int		ft_expose_hook()
 {
-	ft_read(window);
-	//ft_draw(window, map);
+	t_win	*window;
+
+	window = init_env();
+	mlx_put_image_to_window(window->mlx, window->win, window->img->img, 0, 0);
 	return (0);
 }

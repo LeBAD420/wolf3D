@@ -1,11 +1,12 @@
 #include "wolf3d.h"
 
+
 static int		ft_h_intersection(int i, int mult, t_win *window)
 {
-	int		x;
-	int		y;
-	int		x_inc;
-	int		y_inc;
+	t_map	*map;
+	t_cam	*cam;
+	t_pos	*pos;
+	t_pos	*inc;
 	float	va;
 
 	x = window->cam->pos_x;
@@ -30,11 +31,11 @@ static int		ft_h_intersection(int i, int mult, t_win *window)
 
 static int		ft_v_intersection(int i, int mult, t_win *window)
 {
-	int		x;
-	int		y;
-	int		x_inc;
-	int		y_inc;
+	t_pos	*pos;
+	t_pos	*inc;
 	float	va;
+	t_map	*map;
+	t_cam	*cam;
 
 	x = window->cam->pos_x;
 	y = window->cam->pos_y;
@@ -61,7 +62,7 @@ static int		ft_dist_correction(int i, int dist)
 	return (dist = i < WIN_LEN - 1 ? (int)(dist * cosf(-PI / 6)) : (int)(dist * cosf(PI / 6)));
 }
 
-int		ft_wall_distance(int i, t_win *window)
+int				ft_wall_distance(int i)
 {
 	int		h_dist;
 	int		v_dist;
@@ -70,6 +71,8 @@ int		ft_wall_distance(int i, t_win *window)
 	printf("h_dist = %d\n", h_dist);
 	v_dist = ft_v_intersection(i, 0, window);
 	printf("v_dist = %d\n", v_dist);
+	h_dist = ft_h_intersection(i, 0);
+	v_dist = ft_v_intersection(i, 0);
 	if (h_dist <= v_dist)
 		return (h_dist = ft_dist_correction(i, h_dist));
 	else
@@ -89,3 +92,4 @@ void	ft_detect_wall(t_win *window)
 		i++;
 	}
 }
+
