@@ -38,18 +38,18 @@ void	ft_draw_ceiling(int x, int y)
 
 void	ft_draw_img()
 {
-	int		x;
-	int		y;
-	int		wall_height;
-	int		wall_dist;
+	int			x;
+	int			y;
+	double		wall_height;
+	double		wall_dist;
 
 	x = WIN_LEN - 1;
 	while (x >= 0)
 	{
 		//printf("x = %d\n", x);
 		wall_dist = ft_wall_distance(x);
-		printf("Pour x = %d wall_dist->%d\n", x, wall_dist);
-		wall_height = (int)(((float)STEP / wall_dist) * POV);
+		//printf("Pour x = %d wall_dist->%d\n", x, wall_dist);
+		wall_height = STEP / wall_dist * POV;
 		//printf("hauteur a l ecran = %d\n", wall_height);
 		/*if (wall_height > WIN_WID)
 			wall_height = WIN_WID - 1;*/

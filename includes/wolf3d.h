@@ -59,6 +59,12 @@ typedef struct			s_pos
 	int				y;
 }						t_pos;
 
+typedef struct			s_pos2
+{
+	double				x;
+	double				y;
+}						t_pos2;
+
 typedef struct			s_map
 {
 	char			**maze;
@@ -86,14 +92,14 @@ typedef struct			s_win
 typedef struct			s_cam
 {
 	t_pos			*pos;
-	float			angle;
+	double			angle;
 }						t_cam;
 
 /*
 ** camera_fct.c
 */
-t_cam			*ft_new_camera(t_pos *pos, float angle);
-void			ft_set_camera(t_pos *pos, float angle);
+t_cam			*ft_new_camera(t_pos *pos, double angle);
+void			ft_set_camera(t_pos *pos, double angle);
 void			ft_del_camera(void);
 
 /*
@@ -116,7 +122,7 @@ void			move_right(void);
 /*
 ** detect_fct.c
 */
-int				ft_wall_distance(int i);
+double				ft_wall_distance(int i);
 
 /*
 ** error_fct.c
