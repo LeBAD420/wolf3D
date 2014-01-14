@@ -16,7 +16,7 @@ static double		ft_h_intersection(int i)
 	map = ft_init_map(NULL);
 
 	va = cam->angle - FOV / 2 + (WIN_LEN - 1 - i) * (double)FOV * 0.99 / WIN_LEN;
-	x_inc = (abs(STEP / tanf(va)));
+	x_inc = abs(STEP / tan(va));
 
 	if (va >= 0 && va < M_PI) /* rayon vers le haut */
 	{
@@ -30,11 +30,12 @@ static double		ft_h_intersection(int i)
 	}
 	if (va >= M_PI / 2 && va < 3 * M_PI / 2)
 		x_inc = -x_inc;
-	first_inter.x = cam->pos->x + (cam->pos->y - first_inter.y) / tanf(va);
+	first_inter.x = cam->pos->x + (cam->pos->y - first_inter.y) / tan(va);
 
-	/*printf("Position joueur x=%d(%d), y = %d(%d), angle = %f\n",
+	/*printf("Pour x = %d, Horizontale\n", i);
+	printf("Position joueur x=%f(%f), y = %f(%f), angle = %f\n",
 		cam->pos->x, cam->pos->x / STEP, cam->pos->y, cam->pos->y / STEP, va * 180 / M_PI);
-	printf("Premiere intersection en pixel, x = %d (%d), y = %d(%d)\n"
+	printf("Premiere intersection en pixel, x = %f (%f), y = %f(%f)\n"
 		, first_inter.x, first_inter.x / STEP, first_inter.y,first_inter.y / STEP);*/
 	//printf("Premiere intersection en absolu, x = %d, y = %d\n", first_inter.x / STEP, first_inter.y / STEP);
 	//printf("Xa = %d, Ya = %d\n", x_inc, y_inc);
@@ -67,10 +68,10 @@ static double		ft_h_intersection(int i)
 
 	}
 
-	/*printf("Horizontale (%d)(%f)(%d)(%d) mur trouve x= %d (%dpixel), y = %d (%dpixel)\n",i, va * 180 / M_PI, x_inc, y_inc
-		, first_inter.x / STEP, first_inter.x, first_inter.y / STEP, first_inter.y);*/
+	//printf("Horizontale (%d)(%f)(%f)(%f) mur trouve x= %f (%fpixel), y = %f (%fpixel)\n",i, va * 180 / M_PI, x_inc, y_inc
+		//, first_inter.x / STEP, first_inter.x, first_inter.y / STEP, first_inter.y);
 	//printf("valeur absolu intersection: x=%d, y=%d\n",x / STEP, y / STEP);
-	return ((sqrt(powf((double)(cam->pos->x - first_inter.x), 2) + powf((double)(cam->pos->y - first_inter.y), 2))));
+	return ((sqrt(pow((cam->pos->x - first_inter.x), 2) + pow((cam->pos->y - first_inter.y), 2))));
 }
 
 static double		ft_v_intersection(int i)
@@ -87,9 +88,9 @@ static double		ft_v_intersection(int i)
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
 
-	va = cam->angle - FOV / 2 + (WIN_LEN - 1 - i) * (double)FOV * 0.99 / WIN_LEN;
-	y_inc = (abs(STEP / tanf(va)));
-	if (i > 159) /* rayon a droite */
+	va = cam->angle - FOV / 2 + (WIN_LEN - 1 - i) * FOV * 0.99 / WIN_LEN;
+	y_inc = abs(STEP / tan(va));
+	if (va >= M_PI / 2 && va < 3 * M_PI / 2) /* rayon a droite */
 	{
 		first_inter.x = (cam->pos->x / STEP) * STEP + STEP;
 		x_inc = STEP;
@@ -99,14 +100,14 @@ static double		ft_v_intersection(int i)
 		first_inter.x = (cam->pos->x / STEP) * STEP - 1;
 		x_inc = -STEP;
 	}
-	first_inter.y = cam->pos->y + (cam->pos->x - first_inter.x) * tanf(va);
+	first_inter.y = cam->pos->y + (cam->pos->x - first_inter.x) * tan(va);
 	if (va >= 0 && va < M_PI)
 		y_inc = -y_inc;
 
 	/*printf("Intersection Verticale\n");
-	printf("Position joueur x=%d(%d), y = %d(%d), angle = %f\n",
+	printf("Position joueur x=%f(%f), y = %f(%f), angle = %f\n",
 		cam->pos->x, cam->pos->x / STEP, cam->pos->y, cam->pos->y / STEP, va * 180 / M_PI);
-	printf("Premiere intersection en pixel, x = %d (%d), y = %d(%d)\n"
+	printf("Premiere intersection en pixel, x = %f (%f), y = %f(%f)\n"
 		, first_inter.x, first_inter.x / STEP, first_inter.y,first_inter.y / STEP);*/
 	//printf("Intersection Verticale x = %d, va =%f\n", i, va);
 	//printf("valeur absolu player x= %d, y =%d\n", cam->pos->x / STEP, cam->pos->y / STEP);
@@ -142,9 +143,9 @@ static double		ft_v_intersection(int i)
 		if (first_inter.y < 0)
 			first_inter.y = 0;
 	}
-	/*printf("Verticale (%d)(%f)(%d)(%d) mur trouve x= %d (%dpixel), y = %d (%dpixel)\n",i, va * 180 / M_PI, x_inc, y_inc
+/*	printf("Verticale (%d)(%f)(%f)(%f) mur trouve x= %f (%fpixel), y = %f (%fpixel)\n",i, va * 180 / M_PI, x_inc, y_inc
 		, first_inter.x / STEP, first_inter.x, first_inter.y / STEP, first_inter.y);*/
-	return ((sqrt(powf((double)(cam->pos->x - first_inter.x), 2) + powf((double)(cam->pos->y - first_inter.y), 2))));
+	return ((sqrt(pow((cam->pos->x - first_inter.x), 2) + pow((cam->pos->y - first_inter.y), 2))));
 }
 
 static double		ft_dist_correction(int i, double dist)
@@ -153,8 +154,8 @@ static double		ft_dist_correction(int i, double dist)
 	double	va;
 
 	cam = ft_new_camera(NULL, 0);
-	va = cam->angle - M_PI / 6 + (WIN_LEN - 1 - i) * (double)FOV / WIN_LEN;
-	return (dist * cosf(cam->angle - va));
+	va = cam->angle - FOV / 2 + (WIN_LEN - 1 - i) * 0.99 * FOV / WIN_LEN;
+	return (dist * cos(va - cam->angle));
 	//return (dist = i < WIN_LEN / 2 - 1 ? (int)(dist * cosf(-M_PI / 6)) : (int)(dist * cosf(M_PI / 6)));
 }
 

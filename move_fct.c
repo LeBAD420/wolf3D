@@ -9,7 +9,7 @@ void		move_up(void)
 
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
-	new_x = cam->pos->x - cos(cam->angle) * PLAYERSTEP;
+	new_x = cam->pos->x + cos(cam->angle) * PLAYERSTEP;
 	new_y = cam->pos->y - sin(cam->angle) * PLAYERSTEP;
 
 
@@ -40,7 +40,7 @@ void		move_down(void)
 
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
-	new_x = cam->pos->x + cos(cam->angle) * PLAYERSTEP;
+	new_x = cam->pos->x - cos(cam->angle) * PLAYERSTEP;
 	new_y = cam->pos->y + sin(cam->angle) * PLAYERSTEP;
 
 	//Si on depasse de la map

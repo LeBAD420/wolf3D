@@ -29,6 +29,7 @@ int		ft_key_hook(int keycode)
 	printf("apres touche, angle=%f , x =%f, y = %f\n", cam->angle, cam->pos->x, cam->pos->y);
 	ft_draw_img();
 	mlx_put_image_to_window(window->mlx, window->win, window->img->img, 0, 0);
+	printf("apres touche, angle=%f , x =%f, y = %f\n", cam->angle * 180 / M_PI, cam->pos->x, cam->pos->y);
 	return (0);
 }
 
