@@ -70,7 +70,7 @@ typedef struct			s_map
 	char			**maze;
 	int				col;
 	int				row;
-	t_pos			*start;
+	t_pos2			*start;
 }						t_map;
 
 typedef struct 			s_img
@@ -91,15 +91,15 @@ typedef struct			s_win
 
 typedef struct			s_cam
 {
-	t_pos			*pos;
+	t_pos2			*pos;
 	double			angle;
 }						t_cam;
 
 /*
 ** camera_fct.c
 */
-t_cam			*ft_new_camera(t_pos *pos, double angle);
-void			ft_set_camera(t_pos *pos, double angle);
+t_cam			*ft_new_camera(t_pos2 *pos, double angle);
+void			ft_set_camera(t_pos2 *pos, double angle);
 void			ft_del_camera(void);
 
 /*
@@ -164,7 +164,7 @@ void			img_del(t_img *img);
 /*
 ** pos_fct.c
 */
-t_pos			*pos_init(int x, int y);
-void			pos_del(t_pos *pos);
+t_pos2			*pos_init(double x, double y);
+void			pos_del(t_pos2 *pos);
 
 #endif /* !WOLF3D_H */

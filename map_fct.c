@@ -10,7 +10,7 @@ t_map			*ft_init_map(char *file_map)
 		if ((fd = open(file_map, O_RDONLY)) == -1)
 			ft_error("Impossible to open file_map.");
 		map = (t_map*)malloc(sizeof(t_map));
-		map->start = (t_pos*)malloc(sizeof(t_pos));
+		map->start = (t_pos2*)malloc(sizeof(t_pos2));
 		ft_read_map(fd);
 		if (!ft_get_start_player())
 			ft_error("No player in this map.");
@@ -20,7 +20,7 @@ t_map			*ft_init_map(char *file_map)
 
 int				ft_get_start_player(void)
 {
-	t_pos		*pos;
+	t_pos2		*pos;
 	t_map		*map;
 
 	map = ft_init_map(NULL);
@@ -29,9 +29,9 @@ int				ft_get_start_player(void)
 	{
 		while (pos->x < map->col)
 		{
-			if (map->maze[pos->y][pos->x] == STARTPLAYER)
+			if (map->maze[(int)pos->y][(int)pos->x] == STARTPLAYER)
 			{
-				map->maze[pos->y][pos->x] = PATH;
+				map->maze[(int)pos->y][(int)pos->x] = PATH;
 				pos->x = pos->x * STEP - 1;
 				pos->y = pos->y * STEP - 1;
 				map->start = pos;

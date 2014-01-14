@@ -2,10 +2,10 @@
 
 void		move_up(void)
 {
-	t_cam	*cam;
-	t_map	*map;
-	int		new_x;
-	int		new_y;
+	t_cam		*cam;
+	t_map		*map;
+	double		new_x;
+	double		new_y;
 
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
@@ -18,7 +18,7 @@ void		move_up(void)
 	if ( new_y <= map->row * STEP && new_y > 0 &&
 		new_x <= map->col *STEP && new_x > 0)
 	{
-		if (map->maze[new_y / STEP][new_x / STEP] == PATH)
+		if (map->maze[(int)new_y / STEP][(int)new_x / STEP] == PATH)
 		{
 			cam->pos->x = new_x;
 			cam->pos->y = new_y;
@@ -33,10 +33,10 @@ void		move_up(void)
 
 void		move_down(void)
 {
-	t_cam	*cam;
-	t_map	*map;
-	int		new_x;
-	int		new_y;
+	t_cam		*cam;
+	t_map		*map;
+	double		new_x;
+	double		new_y;
 
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
@@ -47,7 +47,7 @@ void		move_down(void)
 	if ( new_y <= map->row * STEP && new_y > 0 &&
 		new_x <= map->col *STEP && new_x > 0)
 	{
-		if (map->maze[new_y / STEP][new_x / STEP] == PATH)
+		if (map->maze[(int)new_y / STEP][(int)new_x / STEP] == PATH)
 		{
 			cam->pos->x = new_x;
 			cam->pos->y = new_y;

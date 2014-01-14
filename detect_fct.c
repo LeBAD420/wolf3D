@@ -25,7 +25,7 @@ static double		ft_h_intersection(int i)
 	}
 	else
 	{
-		first_inter.y = (cam->pos->y / STEP) * STEP + STEP - 1;
+		first_inter.y = (cam->pos->y / STEP) * STEP + STEP;
 		y_inc = STEP;
 	}
 	if (va >= M_PI / 2 && va < 3 * M_PI / 2)
@@ -91,7 +91,7 @@ static double		ft_v_intersection(int i)
 	y_inc = (abs(STEP / tanf(va)));
 	if (i > 159) /* rayon a droite */
 	{
-		first_inter.x = (cam->pos->x / STEP) * STEP + STEP - 1;
+		first_inter.x = (cam->pos->x / STEP) * STEP + STEP;
 		x_inc = STEP;
 	}
 	else
