@@ -10,7 +10,7 @@ void		move_up(void)
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
 	new_x = cam->pos->x + cos(cam->angle) * PLAYERSTEP;
-	new_y = cam->pos->y + sin(cam->angle) * PLAYERSTEP;
+	new_y = cam->pos->y - sin(cam->angle) * PLAYERSTEP;
 
 
 	//Si on depasse de la map
@@ -40,8 +40,8 @@ void		move_down(void)
 
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
-	new_x = cam->pos->x - cos(cam->angle) * PLAYERSTEP;
-	new_y = cam->pos->y - sin(cam->angle) * PLAYERSTEP;
+	new_x = cam->pos->x + cos(cam->angle) * PLAYERSTEP;
+	new_y = cam->pos->y + sin(cam->angle) * PLAYERSTEP;
 
 	//Si on depasse de la map
 	if ( new_y <= map->row * STEP && new_y > 0 &&
@@ -49,8 +49,8 @@ void		move_down(void)
 	{
 		if (map->maze[new_y / STEP][new_x / STEP] == PATH)
 		{
-			cam->pos->x -= cos(cam->angle) * PLAYERSTEP;
-			cam->pos->y -= sin(cam->angle) * PLAYERSTEP;
+			cam->pos->x = new_x;
+			cam->pos->y = new_y;
 		}
 		else
 			printf("on a rencontre un mur\n");
@@ -66,7 +66,7 @@ void		move_left(void)
 
 	cam = ft_new_camera(NULL, 0);
 	cam->angle += PLAYERROT;
-	if (cam->angle - 2 * M_PI > 0)
+	if (cam->angle - 2 * M_PI >= 0)
 		cam->angle = 0;
 	printf("%f\n", cam->angle);
 
@@ -79,7 +79,7 @@ void		move_right(void)
 	cam = ft_new_camera(NULL, 0);
 	cam->angle -= PLAYERROT;
 	if (cam->angle < 0)
-		cam->angle = 23 * M_PI / 12;
+		cam->angle += 2 * M_PI;//23 * M_PI / 12;
 	printf("%f\n", cam->angle);
 }
 

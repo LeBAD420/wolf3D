@@ -23,14 +23,14 @@
 # define COLOR_BLACK 0x000000
 
 //ENV
-# define WIN_WID 200
-# define WIN_LEN 320
+# define WIN_WID 1280
+# define WIN_LEN 1100
 
 //CAMERA
 # define FOV M_PI / 3
-# define POV 277
-//# define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
-# define STARTANGLE (float)M_PI / 2
+//# define POV 277
+# define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
+# define STARTANGLE M_PI / 2
 # define PLAYERSTEP 30
 # define PLAYERROT M_PI / 12
 

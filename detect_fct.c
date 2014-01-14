@@ -7,66 +7,73 @@ static int		ft_h_intersection(int i)
 	t_cam	*cam;
 	t_map	*map;
 	float	va;
-	int		x;
-	int		y;
 	int		x_inc;
 	int		y_inc;
-	int		mult;
 	t_pos	first_inter;
 
-	mult = 0;
 	window = init_env();
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
-	x = cam->pos->x;
-	y = cam->pos->y;
-	va = cam->angle - M_PI / 6 + i * (float)FOV / WIN_LEN;
+
+	va = cam->angle - M_PI / 6 + (WIN_LEN - 1 - i) * (float)FOV / WIN_LEN;
 	x_inc = (int)(abs(STEP / tanf(va)));
-	y_inc = STEP;
+
 	if (va >= 0 && va < M_PI) /* rayon vers le haut */
+	{
 		first_inter.y = (cam->pos->y / STEP) * STEP - 1;
+		y_inc = -STEP;
+	}
 	else
-		first_inter.y = (cam->pos->y / STEP) * STEP + STEP;
+	{
+		first_inter.y = (cam->pos->y / STEP) * STEP + STEP - 1;
+		y_inc = STEP;
+	}
+	if (va >= M_PI / 2 && va < 3 * M_PI / 2)
+		x_inc = -x_inc;
 	first_inter.x = cam->pos->x + (cam->pos->y - first_inter.y) / tanf(va);
-	printf("valeur absolu player x= %d, y =%d\n", cam->pos->x / STEP, cam->pos->y / STEP);
-	printf("valeur pixel player x= %d, y =%d\n", cam->pos->x, cam->pos->y);
-	printf("Premiere intersection en pixel, x = %d, y = %d\n", first_inter.x, first_inter.y);
-	printf("Premiere intersection en absolu, x = %d, y = %d\n", first_inter.x / STEP, first_inter.y / STEP);
+	//printf("Intersection Horizontale x = %d, va = %f\n", i, va);
+	//printf("valeur absolu player x= %d, y =%d\n", cam->pos->x / STEP, cam->pos->y / STEP);
+	//printf("valeur pixel player x= %d, y =%d\n", cam->pos->x, cam->pos->y);
+	//printf("Intersection Horizontale\n");
+	//printf("Position joueur x=%d(%d), y = %d(%d), angle = %f\n",
+	//	cam->pos->x, cam->pos->x / STEP, cam->pos->y, cam->pos->y / STEP, va * 180 / M_PI);
+	//printf("Premiere intersection en pixel, x = %d (%d), y = %d(%d)\n"
+	//	, first_inter.x, first_inter.x / STEP, first_inter.y,first_inter.y / STEP);
+	//printf("Premiere intersection en absolu, x = %d, y = %d\n", first_inter.x / STEP, first_inter.y / STEP);
+	//printf("Xa = %d, Ya = %d\n", x_inc, y_inc);
+	if (first_inter.x > map->col * STEP - 1)
+			first_inter.x = map->col * STEP - 1;
+		if (first_inter.x < 0)
+			first_inter.x = 0;
+
+		if (first_inter.y > (map->row - 1) * STEP - 1)
+			first_inter.y = (map->row - 1) * STEP - 1;
+		if (first_inter.y < 0)
+			first_inter.y = 0;
 
 	while (map->maze[first_inter.y / STEP][first_inter.x / STEP] == PATH)
 	{
 		first_inter.y += y_inc;
 		first_inter.x += x_inc;
-		/*if (va >= 0 && va < M_PI)
-			y = (cam->pos->y / STEP) * STEP - 1 - mult * STEP;
-		else if (va >= M_PI && va < 2 * M_PI)
-			y = (cam->pos->y / STEP) * STEP + STEP - 1 + mult * STEP;
-		if ((va >= 3 * M_PI / 2 && va < 2 * M_PI) || (va >= 0 && va < M_PI / 2))
-            x = cam->pos->x + (int)((cam->pos->y - y) / tanf(va)) + mult * x_inc;
-        else if ((va >= M_PI / 2 && va < 3 * M_PI / 2))
-			x = cam->pos->x + (int)((cam->pos->y - y) / tanf(va)) - mult * x_inc;
-		//printf("valeur intersection x= %d, y=%d\n", x, y);
-		mult++;
-		if (x < 0)
-            x = 0;
-        if (y < 0)
-			y = 0;
-		if (x > map->col * STEP - 1)
-		{
-            x = map->col * STEP - 1;
-            printf("max2 atteint\n");
-		}
-        if (y > (map->row - 1) * STEP - 1)
-        {
-            y = (map->row - 1) * STEP - 1;
-            printf("max atteint\n");
-        }
-        //printf("valeur intersection x= %d, y=%d\n", x, y);
-        //printf("valeur de la case =%c\n", map->maze[y / STEP][x / STEP]);*/
+
+		/* Si on depasse la map */
+		if (first_inter.x > map->col * STEP - 1)
+			first_inter.x = map->col * STEP - 1;
+		if (first_inter.x < 0)
+			first_inter.x = 0;
+
+		if (first_inter.y > (map->row - 1) * STEP - 1)
+			first_inter.y = (map->row - 1) * STEP - 1;
+		if (first_inter.y < 0)
+			first_inter.y = 0;
+
+
 	}
-	printf("mur trouve x= %d, y = %d\n", first_inter.x / STEP, first_inter.y / STEP);
+
+	/*printf("Horizontale (%d)(%f)(%d)(%d) mur trouve x= %d (%dpixel), y = %d (%dpixel)\n",i, va * 180 / M_PI, x_inc, y_inc
+		, first_inter.x / STEP, first_inter.x, first_inter.y / STEP, first_inter.y);*/
 	//printf("valeur absolu intersection: x=%d, y=%d\n",x / STEP, y / STEP);
-	return ((int)(sqrt(powf((float)(cam->pos->x - x), 2) + powf((float)(cam->pos->y - y), 2))));
+	return ((int)(sqrt(powf((float)(cam->pos->x - first_inter.x), 2) + powf((float)(cam->pos->y - first_inter.y), 2))));
 }
 
 static int		ft_v_intersection(int i)
@@ -75,48 +82,83 @@ static int		ft_v_intersection(int i)
 	t_win 	*window;
 	t_cam	*cam;
 	t_map	*map;
-	int		x;
-	int		y;
 	int		x_inc;
 	int		y_inc;
-	int		mult;
+	t_pos	first_inter;
 
-	mult = 0;
 	window = init_env();
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
-	x = cam->pos->x;
-	y = cam->pos->y;
-	va = cam->angle - M_PI / 6 + i * (float)FOV / WIN_LEN;
-	x_inc = STEP;
-	y_inc = (int)(abs(STEP / tanf(va)));
 
-	while (map->maze[y / STEP][x / STEP] == PATH)
+	va = cam->angle - M_PI / 6 + (WIN_LEN - 1 - i) * (float)FOV / WIN_LEN;
+	y_inc = (int)(abs(STEP / tanf(va)));
+	if (i > 159) /* rayon a droite */
 	{
-		if ((va >= 3 * M_PI / 2 && va < 2 * M_PI) || (va >= 0 && va < M_PI / 2))
-			x = (cam->pos->x / STEP) * STEP + STEP - 1 + mult * x_inc;
-		else if ((va >= M_PI / 2 && va < 3 * M_PI / 2))
-			x = (cam->pos->x / STEP) * STEP - 1 - mult * x_inc;
-		if (va >= 0 && va < M_PI)
-            y = cam->pos->y + (int)((cam->pos->x - x) / tanf(va)) - mult * y_inc;
-        else if (va >= M_PI && va < 2 * M_PI)
-			y = cam->pos->y + (int)((cam->pos->x - x) / tanf(va)) + mult * y_inc;
-		mult++;
-		if (x < 0)
-			x = 0;
-		if (y < 0)
-			y = 0;
-		if (x > map->col * STEP - 1)
-			x = map->col * STEP - 1;
-		if (y > (map->row - 1) * STEP - 1)
-			y = (map->row - 1) * STEP - 1;
+		first_inter.x = (cam->pos->x / STEP) * STEP + STEP - 1;
+		x_inc = STEP;
 	}
-	return ((int)(sqrt(powf((float)(cam->pos->x - x), 2) + powf((float)(cam->pos->y - y), 2))));
+	else
+	{
+		first_inter.x = (cam->pos->x / STEP) * STEP - 1;
+		x_inc = -STEP;
+	}
+	first_inter.y = cam->pos->y + (cam->pos->x - first_inter.x) * tanf(va);
+	if (va >= 0 && va < M_PI)
+		y_inc = -y_inc;
+
+	/*printf("Intersection Verticale\n");
+	printf("Position joueur x=%d(%d), y = %d(%d), angle = %f\n",
+		cam->pos->x, cam->pos->x / STEP, cam->pos->y, cam->pos->y / STEP, va * 180 / M_PI);
+	printf("Premiere intersection en pixel, x = %d (%d), y = %d(%d)\n"
+		, first_inter.x, first_inter.x / STEP, first_inter.y,first_inter.y / STEP);*/
+	//printf("Intersection Verticale x = %d, va =%f\n", i, va);
+	//printf("valeur absolu player x= %d, y =%d\n", cam->pos->x / STEP, cam->pos->y / STEP);
+	//printf("valeur pixel player x= %d, y =%d\n", cam->pos->x, cam->pos->y);
+	//printf("Premiere intersection en pixel, x = %d, y = %d\n", first_inter.x, first_inter.y);
+	//printf("Premiere intersection en absolu, x = %d, y = %d\n", first_inter.x / STEP, first_inter.y / STEP);
+	//printf("Xa = %d, Ya = %d\n", x_inc, y_inc);
+	if (first_inter.x > map->col * STEP - 1)
+			first_inter.x = map->col * STEP - 1;
+		if (first_inter.x < 0)
+			first_inter.x = 0;
+
+		if (first_inter.y > (map->row - 1) * STEP - 1)
+			first_inter.y = (map->row - 1) * STEP - 1;
+		if (first_inter.y < 0)
+			first_inter.y = 0;
+	while (map->maze[first_inter.y / STEP][first_inter.x / STEP] == PATH)
+	{
+		first_inter.y += y_inc;
+		first_inter.x += x_inc;
+
+		/*printf("Verticale new cooortrouve x = %d(%d), y = %d(%d)\n"
+			, first_inter.x, first_inter.x / STEP, first_inter.y, first_inter.y / STEP);*/
+
+		/* Si on depasse la map */
+		if (first_inter.x > map->col * STEP - 1)
+			first_inter.x = map->col * STEP - 1;
+		if (first_inter.x < 0)
+			first_inter.x = 0;
+
+		if (first_inter.y > (map->row - 1) * STEP - 1)
+			first_inter.y = (map->row - 1) * STEP - 1;
+		if (first_inter.y < 0)
+			first_inter.y = 0;
+	}
+	/*printf("Verticale (%d)(%f)(%d)(%d) mur trouve x= %d (%dpixel), y = %d (%dpixel)\n",i, va * 180 / M_PI, x_inc, y_inc
+		, first_inter.x / STEP, first_inter.x, first_inter.y / STEP, first_inter.y);*/
+	return ((int)(sqrt(powf((float)(cam->pos->x - first_inter.x), 2) + powf((float)(cam->pos->y - first_inter.y), 2))));
 }
 
 static int		ft_dist_correction(int i, int dist)
 {
-	return (dist = i < WIN_LEN - 1 ? (int)(dist * cosf(-M_PI / 6)) : (int)(dist * cosf(M_PI / 6)));
+	t_cam	*cam;
+	float	va;
+
+	cam = ft_new_camera(NULL, 0);
+	va = cam->angle - M_PI / 6 + (WIN_LEN - 1 - i) * (float)FOV / WIN_LEN;
+	return (dist * cosf(cam->angle - va));
+	//return (dist = i < WIN_LEN / 2 - 1 ? (int)(dist * cosf(-M_PI / 6)) : (int)(dist * cosf(M_PI / 6)));
 }
 
 int				ft_wall_distance(int i)

@@ -31,9 +31,11 @@ int				ft_get_start_player(void)
 		{
 			if (map->maze[pos->y][pos->x] == STARTPLAYER)
 			{
+				map->maze[pos->y][pos->x] = PATH;
 				pos->x = pos->x * STEP - 1;
 				pos->y = pos->y * STEP - 1;
 				map->start = pos;
+
 				return (1);
 			}
 			pos->x++;
