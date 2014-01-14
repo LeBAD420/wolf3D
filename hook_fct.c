@@ -11,7 +11,11 @@ void			ft_exit(void)
 int		ft_key_hook(int keycode)
 {
 	t_win	*window;
+	t_cam	*cam;
+
 	window = init_env();
+	cam = ft_new_camera(NULL, 0);
+	printf("Avant touche, angle=%f , x =%d, y = %d\n", cam->angle, cam->pos->x, cam->pos->y);
 	if (keycode == KEYECHAP)
 		ft_exit();
 	if (keycode == KEYUP)
@@ -22,6 +26,7 @@ int		ft_key_hook(int keycode)
 		move_left();
 	if (keycode == KEYRIGHT)
 		move_right();
+	printf("apres touche, angle=%f , x =%d, y = %d\n", cam->angle, cam->pos->x, cam->pos->y);
 	ft_draw_img();
 	mlx_put_image_to_window(window->mlx, window->win, window->img->img, 0, 0);
 	return (0);

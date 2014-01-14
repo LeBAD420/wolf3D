@@ -14,18 +14,14 @@ void		move_up(void)
 
 
 	//Si on depasse de la map
+	printf("on avance\n");
 	if ( new_y <= map->row * STEP && new_y > 0 &&
 		new_x <= map->col *STEP && new_x > 0)
 	{
 		if (map->maze[new_y / STEP][new_x / STEP] == PATH)
 		{
-			printf("avance dans la map\n");
-		printf("Ancienne coord camera x=%d, y = %d\n", cam->pos->x , cam->pos->y);
-		//if ()
-		printf("valeur de pas sur x =%f\n", cos(cam->angle) * PLAYERSTEP);
-		cam->pos->x = new_x;
-		cam->pos->y = new_y;
-		printf("nouvelle coord camera x=%d, y = %d\n", cam->pos->x , cam->pos->y);
+			cam->pos->x = new_x;
+			cam->pos->y = new_y;
 		}
 		else
 			printf("ona  rencontrer un mur\n");
@@ -53,13 +49,8 @@ void		move_down(void)
 	{
 		if (map->maze[new_y / STEP][new_x / STEP] == PATH)
 		{
-			printf("recule dans la map\n");
-		printf("Ancienne coord camera x=%d, y = %d\n", cam->pos->x , cam->pos->y);
-		//if ()
-		printf("valeur de pas sur x =%f\n", cos(cam->angle) * PLAYERSTEP);
-		cam->pos->x -= cos(cam->angle) * PLAYERSTEP;
-		cam->pos->y -= sin(cam->angle) * PLAYERSTEP;
-		printf("nouvelle coord camera x=%d, y = %d\n", cam->pos->x , cam->pos->y);
+			cam->pos->x -= cos(cam->angle) * PLAYERSTEP;
+			cam->pos->y -= sin(cam->angle) * PLAYERSTEP;
 		}
 		else
 			printf("on a rencontre un mur\n");
