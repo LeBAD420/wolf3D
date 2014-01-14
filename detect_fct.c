@@ -32,6 +32,7 @@ static int		ft_h_intersection(int i)
             x = cam->pos->x + (int)((cam->pos->y - y) / tanf(va)) + mult * x_inc;
         else if ((va >= M_PI / 2 && va < 3 * M_PI / 2))
 			x = cam->pos->x + (int)((cam->pos->y - y) / tanf(va)) - mult * x_inc;
+		printf("valeur intersection x= %d, y=%d\n", x, y);
 		mult++;
 		if (x < 0)
             x = 0;

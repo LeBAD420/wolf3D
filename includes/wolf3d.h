@@ -31,7 +31,7 @@
 # define POV 277
 //# define POV (int)(WIN_LEN / 2 / tanf(FOV/2))
 # define STARTANGLE (float)M_PI / 2
-# define PLAYERSTEP 20
+# define PLAYERSTEP 30
 # define PLAYERROT M_PI / 12
 
 //MAP

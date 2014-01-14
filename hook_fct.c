@@ -11,7 +11,6 @@ void			ft_exit(void)
 int		ft_key_hook(int keycode)
 {
 	t_win	*window;
-
 	window = init_env();
 	if (keycode == KEYECHAP)
 		ft_exit();

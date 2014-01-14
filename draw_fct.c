@@ -43,8 +43,8 @@ void	ft_draw_img()
 	int		wall_height;
 	int		wall_dist;
 
-	x = 0;
-	while (x < WIN_LEN - 1)
+	x = WIN_LEN - 1;
+	while (x >= 0)
 	{
 		printf("x = %d\n", x);
 		wall_dist = ft_wall_distance(x);
@@ -61,7 +61,9 @@ void	ft_draw_img()
 
 		/* on dessine le floor */
 		ft_draw_floor(x, WIN_WID / 2 + wall_height / 2 - 1);
-		x++;
+		/*if (x == 5)
+			break ;
+	*/	x--;
 
 	}
 }
@@ -75,11 +77,7 @@ void	mlx_put_pixel_to_image(int x, int y, int color)
 	win = init_env();
 	new_color = mlx_get_color_value(win->mlx, color);
 	i = x * 4 + y * win->img->size_line;
-	win->img->data[i] = new_color % 256;
-	new_color /= 256;
-	win->img->data[i + 1] = new_color % 256;
-	new_color /= 256;
-	win->img->data[i + 2] = new_color % 256;
-	new_color /= 256;
-	win->img->data[i + 3] = 0;
+	win->img->data[i] = (new_color & 0xFF);
+	win->img->data[i + 1] = (new_color & 0xFF00) >> 8;
+	win->img->data[i + 2] = (new_color & 0xFF0000) >> 16;
 }

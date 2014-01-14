@@ -19,7 +19,8 @@ int		main(int argc, char **argv)
 	/* Init img */
 	window->img = init_img();
 
-	mlx_key_hook(window->win, ft_key_hook, window);
+	mlx_do_key_autorepeaton(window->mlx);
+	mlx_hook(window->win, 2, (1L << 0), ft_key_hook, window);
 	mlx_expose_hook(window->win, ft_expose_hook, window);
 	ft_draw_img();
 	mlx_put_image_to_window(window->mlx, window->win, window->img->img, 0, 0);
