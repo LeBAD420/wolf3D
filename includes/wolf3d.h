@@ -166,4 +166,18 @@ void			img_del(t_img *img);
 t_pos2			*pos_init(double x, double y);
 void			pos_del(t_pos2 *pos);
 
+
+/*
+** NEW TODO MOVE
+*/
+t_pos	*first_h_inter(double va);
+t_pos	*next_h_inter(double va, t_pos *oi);
+t_pos	*first_v_inter(double va);
+t_pos	*next_v_inter(double va, t_pos *oi);
+int		is_wall(t_pos *pos);
+int		looking_north(double va);
+int		looking_east(double va);
+double	get_distance_h(double va, t_pos *inter);
+double	get_distance_v(double va, t_pos *inter);
+
 #endif /* !WOLF3D_H */
