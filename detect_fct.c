@@ -63,7 +63,7 @@ int					is_wall(t_pos *pos)
 		pos->y = map->row * STEP - STEP;
 	else if(pos->y < 0)
 		pos-> y = 0;
-	return (map->maze[pos->y / STEP][pos->x / STEP] == PATH);
+	return (map->maze[pos->y / STEP][pos->x / STEP] != PATH);
 }
 
 int					looking_north(double va)
