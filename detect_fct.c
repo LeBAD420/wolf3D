@@ -9,8 +9,14 @@ static double		ft_h_intersection(int i)
 	cam = ft_new_camera(NULL, 0);
 	va = cam->angle - (FOV / 2) + ((WIN_WID - 1 - i) * FOV) / WIN_WID;
 	inter = first_h_inter(va);
+	printf("x h_inter = %d\n", inter->x / STEP);
+	printf("y h_inter = %d\n", inter->y / STEP);
 	while(!is_wall(inter))
+	{
 		inter = next_h_inter(va, inter);
+		printf("x h_inter = %d\n", inter->x / STEP);
+		printf("y h_inter = %d\n", inter->y / STEP);
+	}
 	return (get_distance_h(va, inter));
 }
 
@@ -32,7 +38,7 @@ t_pos				*next_h_inter(double va, t_pos *oi)
 	t_pos	*ni;
 
 	ni = (t_pos*)malloc(sizeof(t_pos));
-	ni->y = looking_north(va) ? oi->y + STEP : oi->y - STEP;
+	ni->y = looking_north(va) ? oi->y - STEP : oi->y + STEP;
 	ni->x = looking_east(va) ? oi->x + abs(STEP / tan(va)) : oi->x - abs(STEP / tan(va));
 	return (ni);
 }
@@ -46,7 +52,8 @@ double				get_distance_h(double va, t_pos *inter)
 	if (looking_east(va) == -1)
 		dist = HUGE;
 	else
-		dist = abs((cam->pos->y - inter->y) * sin(va));
+		dist = sqrt(pow(cam->pos->y - inter->y, 2) + pow(cam->pos->x - inter->x, 2));
+	printf("distance distordue horizontale = %f\n", dist);
 	return (dist);
 }
 
@@ -91,8 +98,14 @@ static double		ft_v_intersection(int i)
 	va = cam->angle - (FOV / 2) + ((WIN_WID - 1 - i) * FOV) / WIN_WID;
 	cam = ft_new_camera(NULL, 0);
 	inter = first_v_inter(va);
+	printf("x v_inter = %d\n", inter->x / STEP);
+    printf("y v_inter = %d\n", inter->y / STEP);
 	while(!is_wall(inter))
+	{
 		inter = next_v_inter(va, inter);
+		printf("x v_inter = %d\n", inter->x / STEP);
+		printf("y v_inter = %d\n", inter->y / STEP);
+	}
 	return (get_distance_v(va, inter));
 }
 
@@ -128,7 +141,8 @@ double				get_distance_v(double va, t_pos *inter)
 	if (looking_north(va) == -1)
 		dist = HUGE;
 	else
-		dist = abs((cam->pos->y - inter->y) * sin(va));
+		dist = sqrt(pow(cam->pos->y - inter->y , 2) + pow(cam->pos->x - inter->x, 2));
+	printf("distance distordue verticale = %f\n", dist);
 	return (dist);
 }
 
@@ -139,18 +153,30 @@ static double		ft_dist_correction(int i, double dist)
 
 	cam = ft_new_camera(NULL, 0);
 	va = cam->angle - (FOV / 2) + ((WIN_WID - 1 - i) * FOV) / WIN_WID;
-	return (dist * cos(va - cam->angle));
+	return (dist * cos(cam->angle - va));
 }
 
 double				ft_wall_distance(int i)
 {
 	double		h_dist;
 	double		v_dist;
+	t_cam		*cam;
+	double		va;
 
+	cam = ft_new_camera(NULL, 0);
+	printf("angle de la camera = %f\n", cam->angle);
+	va = cam->angle - (FOV / 2) + ((WIN_WID - 1 - i) * FOV) / WIN_WID;
+	printf("angle du rayon caste = %f\n", va);
 	h_dist = ft_h_intersection(i);
 	v_dist = ft_v_intersection(i);
-	if (h_dist <= v_dist)
+	if (h_dist < v_dist)
+	{
+//		return (h_dist);
 		return (ft_dist_correction(i, h_dist));
+	}
 	else
+	{
+//		return (v_dist);
 		return (ft_dist_correction(i, v_dist));
+	}
 }

@@ -14,7 +14,7 @@ int		main(int argc, char **argv)
 	/* Init Env */
 	window = init_env();
 	/* Init Camera */
-	cam = ft_new_camera(map->start, M_PI / 2);
+	cam = ft_new_camera(map->start, STARTANGLE);
 
 	/* Init img */
 	window->img = init_img();

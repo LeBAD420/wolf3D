@@ -66,8 +66,8 @@ void		move_left(void)
 
 	cam = ft_new_camera(NULL, 0);
 	cam->angle += PLAYERROT;
-	if (cam->angle - 2 * M_PI >= 0)
-		cam->angle = 0;
+	if (cam->angle > 2 * M_PI)
+		cam->angle -= 2 * M_PI;
 	printf("%f\n", cam->angle);
 
 }

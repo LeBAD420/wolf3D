@@ -29,7 +29,7 @@
 //CAMERA
 # define FOV (M_PI / 3)
 # define POV (WIN_WID/ 2 / tan(FOV/2))
-# define STARTANGLE (M_PI / 4)
+# define STARTANGLE (M_PI / 2)
 # define PLAYERSTEP 30
 # define PLAYERROT (M_PI / 13)
 

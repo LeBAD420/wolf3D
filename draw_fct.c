@@ -46,13 +46,10 @@ void	ft_draw_img()
 	x = WIN_WID - 1;
 	while (x >= 0)
 	{
-		//printf("x = %d\n", x);
 		wall_dist = ft_wall_distance(x);
 
-		printf("Pour x = %d wall_dist->%f\n", x, wall_dist);
-		//ft_putstr("\n");
 		wall_height = STEP / wall_dist * POV;
-		printf("hauteur a l ecran = %f\n", wall_height);
+//		printf("hauteur a l ecran = %f\n", wall_height);
 		/*if (wall_height > WIN_HEI)
 			wall_height = WIN_HEI - 1;*/
 		y = (WIN_HEI / 2) - 1 - (wall_height / 2);
@@ -65,10 +62,10 @@ void	ft_draw_img()
 
 		/* on dessine le floor */
 		ft_draw_floor(x, WIN_HEI / 2 + wall_height / 2 - 1);
-		/*if (x == WIN_WID - 64)
+/*		if (x == WIN_WID - 1)
 			break ;
-	*/	x--;
-
+*/		
+		x--;
 	}
 }
 
