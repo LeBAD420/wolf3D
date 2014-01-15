@@ -23,8 +23,8 @@
 # define COLOR_BLACK 0x000000
 
 //ENV
-# define WIN_WID 1280
-# define WIN_LEN 1100
+# define WIN_HEI 1280
+# define WIN_WID 1100
 
 //CAMERA
 # define FOV M_PI / 3

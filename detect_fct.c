@@ -15,7 +15,7 @@ static double		ft_h_intersection(int i)
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
 
-	va = cam->angle - FOV / 2 + (WIN_LEN - 1 - i) * (double)FOV * 0.99 / WIN_LEN;
+	va = cam->angle - FOV / 2 + (WIN_WID - 1 - i) * (double)FOV * 0.99 / WIN_WID;
 	x_inc = abs(STEP / tan(va));
 
 	if (va >= 0 && va < M_PI) /* rayon vers le haut */
@@ -88,7 +88,7 @@ static double		ft_v_intersection(int i)
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
 
-	va = cam->angle - FOV / 2 + (WIN_LEN - 1 - i) * FOV * 0.99 / WIN_LEN;
+	va = cam->angle - FOV / 2 + (WIN_WID - 1 - i) * FOV * 0.99 / WIN_WID;
 	y_inc = abs(STEP / tan(va));
 	if (va >= M_PI / 2 && va < 3 * M_PI / 2) /* rayon a droite */
 	{
@@ -154,9 +154,9 @@ static double		ft_dist_correction(int i, double dist)
 	double	va;
 
 	cam = ft_new_camera(NULL, 0);
-	va = cam->angle - FOV / 2 + (WIN_LEN - 1 - i) * 0.99 * FOV / WIN_LEN;
+	va = cam->angle - FOV / 2 + (WIN_WID - 1 - i) * 0.99 * FOV / WIN_WID;
 	return (dist * cos(va - cam->angle));
-	//return (dist = i < WIN_LEN / 2 - 1 ? (int)(dist * cosf(-M_PI / 6)) : (int)(dist * cosf(M_PI / 6)));
+	//return (dist = i < WIN_WID / 2 - 1 ? (int)(dist * cosf(-M_PI / 6)) : (int)(dist * cosf(M_PI / 6)));
 }
 
 double				ft_wall_distance(int i)
