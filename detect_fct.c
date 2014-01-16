@@ -66,8 +66,8 @@ int					is_wall(t_pos *pos)
 		pos->x = map->col * STEP - STEP;
 	else if(pos->x < 0)
 		pos->x = 0;
-	if (pos->y > map->row * STEP)
-		pos->y = map->row * STEP - STEP;
+	if (pos->y > (map->row - 1) * STEP)
+		pos->y = (map->row - 1) * STEP - STEP;
 	else if(pos->y < 0)
 		pos-> y = 0;
 	return (map->maze[pos->y / STEP][pos->x / STEP] != PATH);
