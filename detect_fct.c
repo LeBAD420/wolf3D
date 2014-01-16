@@ -1,5 +1,18 @@
 #include "wolf3d.h"
 
+static int is_to_far(t_pos *pos)
+{
+	t_map	*map;
+
+	map = ft_init_map(NULL);
+	if (pos->x > map->col * STEP || pos->x < 0)
+		return (1);
+
+	if (pos->y > map->row * STEP || pos->y < 0)
+		return (1);
+	return (0);
+}
+
 static double		ft_h_intersection(int i)
 {
 	t_pos	*inter;
@@ -7,16 +20,29 @@ static double		ft_h_intersection(int i)
 	double	va;
 
 	cam = ft_new_camera(NULL, 0);
+	/*angle = (cam->angle - FOV / 2 + 360) % 360
+	while (angle <= cam->angle + FOV / 2)
+	{
+		x += cos(angle)
+		y -= sin(angle)
+		ft_h_intersection
+
+		angle += FOV / WIDTH;
+	}*/
 	va = cam->angle - (FOV / 2) + ((WIN_WID - 1 - i) * FOV) / WIN_WID;
 	inter = first_h_inter(va);
-	printf("x h_inter = %d\n", inter->x / STEP);
-	printf("y h_inter = %d\n", inter->y / STEP);
-	while(!is_wall(inter))
+
+	if (is_to_far(inter))
+		return (0);
+	while(!is_wall(inter) > 0)
 	{
 		inter = next_h_inter(va, inter);
-		printf("x h_inter = %d\n", inter->x / STEP);
-		printf("y h_inter = %d\n", inter->y / STEP);
+		if (is_to_far(inter))
+			return (0);
+		/*printf("x h_inter = %d\n", inter->x / STEP);
+		printf("y h_inter = %d\n", inter->y / STEP);*/
 	}
+	printf("Horizontale mur en %d;%d (x,y) (%d,%d)->%d\n", inter->x / STEP, inter->y / STEP, inter->x, inter->y, i);
 	return (get_distance_h(va, inter));
 }
 
@@ -53,9 +79,11 @@ double				get_distance_h(double va, t_pos *inter)
 		dist = HUGE;
 	else
 		dist = sqrt(pow(cam->pos->y - inter->y, 2) + pow(cam->pos->x - inter->x, 2));
-	printf("distance distordue horizontale = %f\n", dist);
+	//printf("distance distordue horizontale = %f\n", dist);
 	return (dist);
 }
+
+
 
 int					is_wall(t_pos *pos)
 {
@@ -63,13 +91,26 @@ int					is_wall(t_pos *pos)
 
 	map = ft_init_map(NULL);
 	if (pos->x > map->col * STEP)
+	{
+		printf(" ojn est trop loinnnnnnnnnnnn\n");
 		pos->x = map->col * STEP - STEP;
+	}
 	else if(pos->x < 0)
+	{
+		printf("on est nega x = %d\n", pos->x);
+		//pos->x = 29;
 		pos->x = 0;
+	}
 	if (pos->y > (map->row - 1) * STEP)
+	{
+		printf(" ojn est trop loinnnnnnnnnnnn\n");
 		pos->y = (map->row - 1) * STEP - STEP;
+	}
 	else if(pos->y < 0)
+	{
+		printf("on est nega x = %d\n", pos->x);
 		pos-> y = 0;
+	}
 	return (map->maze[pos->y / STEP][pos->x / STEP] != PATH);
 }
 
@@ -98,14 +139,19 @@ static double		ft_v_intersection(int i)
 	va = cam->angle - (FOV / 2) + ((WIN_WID - 1 - i) * FOV) / WIN_WID;
 	cam = ft_new_camera(NULL, 0);
 	inter = first_v_inter(va);
-	printf("x v_inter = %d\n", inter->x / STEP);
-    printf("y v_inter = %d\n", inter->y / STEP);
+	/*printf("x v_inter = %d\n", inter->x / STEP);
+    printf("y v_inter = %d\n", inter->y / STEP);*/
+    if (is_to_far(inter))
+		return (0);
 	while(!is_wall(inter))
 	{
 		inter = next_v_inter(va, inter);
-		printf("x v_inter = %d\n", inter->x / STEP);
-		printf("y v_inter = %d\n", inter->y / STEP);
+		if (is_to_far(inter))
+			return (0);
+		/*printf("x v_inter = %d\n", inter->x / STEP);
+		printf("y v_inter = %d\n", inter->y / STEP);*/
 	}
+	printf("Verticale mur en %d;%d (x,y) (%d,%d)->%d\n", inter->x / STEP, inter->y / STEP, inter->x, inter->y, i);
 	return (get_distance_v(va, inter));
 }
 
@@ -142,7 +188,7 @@ double				get_distance_v(double va, t_pos *inter)
 		dist = HUGE;
 	else
 		dist = sqrt(pow(cam->pos->y - inter->y , 2) + pow(cam->pos->x - inter->x, 2));
-	printf("distance distordue verticale = %f\n", dist);
+	//printf("distance distordue verticale = %f\n", dist);
 	return (dist);
 }
 
@@ -164,19 +210,18 @@ double				ft_wall_distance(int i)
 	double		va;
 
 	cam = ft_new_camera(NULL, 0);
-	printf("angle de la camera = %f\n", cam->angle);
+//	printf("angle de la camera = %f\n", cam->angle);
 	va = cam->angle - (FOV / 2) + ((WIN_WID - 1 - i) * FOV) / WIN_WID;
-	printf("angle du rayon caste = %f\n", va);
+//	printf("angle du rayon caste = %f\n", va);
 	h_dist = ft_h_intersection(i);
 	v_dist = ft_v_intersection(i);
-	if (h_dist < v_dist)
-	{
-//		return (h_dist);
-		return (ft_dist_correction(i, h_dist));
-	}
-	else
-	{
-//		return (v_dist);
+
+	if (h_dist == 0 || (v_dist < h_dist && v_dist != 0))
 		return (ft_dist_correction(i, v_dist));
-	}
+	else
+		return (ft_dist_correction(i, h_dist));
+	/*if (h_dist < v_dist && h_dist != 0)
+		return (ft_dist_correction(i, h_dist));
+	else
+		return (ft_dist_correction(i, v_dist));*/
 }

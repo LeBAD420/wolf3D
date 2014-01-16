@@ -86,6 +86,7 @@ typedef struct			s_win
 	void			*mlx;
 	void			*win;
 	t_img			*img;
+	int 			save[4];
 }						t_win;
 
 typedef struct			s_cam
@@ -132,7 +133,11 @@ void			ft_error(char *s);
 ** hook_fct.c
 */
 int				ft_key_hook(int keycode);
-int				ft_expose_hook(void);
+int				ft_expose_hook(t_win	*window);
+int 			ft_keypress(int keycode, t_win *window);
+int 			ft_key_release(int keycode, t_win *window);
+int 			ft_loop_hook(t_win *window);
+void			ft_exit(void);
 
 /*
 ** draw.c

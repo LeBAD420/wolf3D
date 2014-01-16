@@ -49,9 +49,11 @@ void	ft_draw_img()
 		wall_dist = ft_wall_distance(x);
 
 		wall_height = STEP / wall_dist * POV;
-//		printf("hauteur a l ecran = %f\n", wall_height);
-		/*if (wall_height > WIN_HEI)
-			wall_height = WIN_HEI - 1;*/
+
+		/* Si hauteur du mur superieur hauteur fenetre on resize */
+		if (wall_height > WIN_HEI)
+			wall_height = WIN_HEI - 1;
+
 		y = (WIN_HEI / 2) - 1 - (wall_height / 2);
 
 		/* on dessine le plafond */
@@ -62,9 +64,6 @@ void	ft_draw_img()
 
 		/* on dessine le floor */
 		ft_draw_floor(x, WIN_HEI / 2 + wall_height / 2 - 1);
-/*		if (x == WIN_WID - 1)
-			break ;
-*/		
 		x--;
 	}
 }

@@ -80,7 +80,7 @@ void			ft_read_map(int fd)
 	}
 	if (ret == -1)
 		ft_error("Reading error.");
-	map->row = count;
+	map->row = count - 1;
 	map->col = ft_strlen(maze[0]);
 	map->maze = maze;
 	close(fd);
