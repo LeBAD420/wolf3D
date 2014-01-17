@@ -4,12 +4,12 @@ void		move_up(void)
 {
 	t_cam		*cam;
 	t_map		*map;
-	t_pos		coord;
+	t_pos2		coord;
 
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
-	coord.x =(int)((cam->pos->x + cos(cam->angle) * PLAYERSTEP));
-	coord.y = (int)((cam->pos->y - sin(cam->angle) * PLAYERSTEP));
+	coord.x =(cam->pos->x + cos(cam->angle) * PLAYERSTEP);
+	coord.y = (cam->pos->y - sin(cam->angle) * PLAYERSTEP);
 
 	if (!is_wall(&coord))
 	{

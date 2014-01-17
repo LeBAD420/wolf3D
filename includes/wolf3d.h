@@ -11,36 +11,30 @@
 # include <sys/uio.h>
 # include <../libft/includes/libft.h>
 
-//COLORS
-# define COLOR_WHITE 0xCCCCCC
-# define COLOR_RED 0xCC0000
-# define COLOR_ORANGE 0xFF7700
-# define COLOR_YELLOW 0xCCCC00
-# define COLOR_GREEN 0x00CC00
-# define COLOR_CYAN 0x00CCCC
-# define COLOR_BLUE 0x0000CC
-# define COLOR_MAGENTA 0xCC00CC
-# define COLOR_BLACK 0x000000
-
 //ENV
-# define WIN_HEI 1280
-# define WIN_WID 1100
-
-//CAMERA
-# define FOV (M_PI / 3)
-# define POV (WIN_WID/ 2 / tan(FOV/2))
-# define STARTANGLE (M_PI / 2)
-# define PLAYERSTEP 30
-# define PLAYERROT (M_PI / 13)
+# define WIN_HEI 1100
+# define WIN_WID 2080
 
 //MAP
 # define WALL '*'
 # define PATH ' '
 # define STARTPLAYER 'D'
-# define STEP 64
-# define COLOR_CEILING COLOR_CYAN
-# define COLOR_FLOOR COLOR_RED
-# define COLOR_WALL COLOR_BLUE
+# define STEP (WIN_WID * 30)
+# define COLOR_CEILING 0x9EE1E8
+# define COLOR_FLOOR 0xA7ABAB
+# define COLOR_WALL_NORTH 0xFF3140
+# define COLOR_WALL_SOUTH 0x942C25
+# define COLOR_WALL_EAST 0xE8C657
+# define COLOR_WALL_WEST 0xE8C657
+
+//CAMERA
+# define FOV (M_PI / 3)
+# define POV (WIN_WID / 2 / tan(FOV / 2))
+# define STARTANGLE (M_PI / 2)
+# define PLAYERSTEP (STEP / 2)
+# define PLAYERROT (M_PI / 12)
+
+
 
 //GETNEXTLINE
 # define BUFF_SIZE 8
@@ -51,6 +45,12 @@
 # define KEYUP 65362
 # define KEYRIGHT 65363
 # define KEYDOWN 65364
+
+typedef struct			s_wall
+{
+	double			dist;
+	int				color;
+}						t_wall;
 
 typedef struct			s_pos
 {
@@ -122,7 +122,7 @@ void			move_right(void);
 /*
 ** detect_fct.c
 */
-double				ft_wall_distance(int i);
+t_wall				ft_wall_distance(int i);
 
 /*
 ** error_fct.c
@@ -142,7 +142,7 @@ void			ft_exit(void);
 /*
 ** draw.c
 */
-void			ft_draw_wall(int h_wall, int x, int y);
+void			ft_draw_wall(int h_wall, int x, int y, int color);
 void			ft_draw_floor(int x, int y);
 void			ft_draw_ceiling(int x, int y);
 void			ft_draw_img();
@@ -175,14 +175,14 @@ void			pos_del(t_pos2 *pos);
 /*
 ** NEW TODO MOVE
 */
-t_pos	*first_h_inter(double va);
-t_pos	*next_h_inter(double va, t_pos *oi);
-t_pos	*first_v_inter(double va);
-t_pos	*next_v_inter(double va, t_pos *oi);
-int		is_wall(t_pos *pos);
+t_pos2	*first_h_inter(double va);
+t_pos2	*next_h_inter(double va, t_pos2 *oi);
+t_pos2	*first_v_inter(double va);
+t_pos2	*next_v_inter(double va, t_pos2 *oi);
+int		is_wall(t_pos2 *pos);
 int		looking_north(double va);
 int		looking_east(double va);
-double	get_distance_h(double va, t_pos *inter);
-double	get_distance_v(double va, t_pos *inter);
+t_wall	get_distance_h(double va, t_pos2 *inter);
+t_wall	get_distance_v(double va, t_pos2 *inter);
 
 #endif /* !WOLF3D_H */
