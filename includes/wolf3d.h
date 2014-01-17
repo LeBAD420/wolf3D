@@ -11,11 +11,15 @@
 # include <sys/uio.h>
 # include <../libft/includes/libft.h>
 
-//ENV
+/*
+** Env
+*/
 # define WIN_HEI 1100
 # define WIN_WID 2080
 
-//MAP
+/*
+** Map
+*/
 # define WALL '*'
 # define PATH ' '
 # define STARTPLAYER 'D'
@@ -27,24 +31,28 @@
 # define COLOR_WALL_EAST 0x99131D
 # define COLOR_WALL_WEST 0x55131D
 
-//CAMERA
+/*
+** Camera
+*/
 # define FOV (M_PI / 3)
 # define POV (WIN_WID / 2 / tan(FOV / 2))
 # define STARTANGLE (M_PI / 2)
 # define PLAYERSTEP (STEP / 2)
 # define PLAYERROT (M_PI / 12)
 
-
-
-//GETNEXTLINE
+/*
+** Getnexline
+*/
 # define BUFF_SIZE 8
 
-//KEY_HOOK
-# define KEYECHAP 65307
-# define KEYLEFT 65361
-# define KEYUP 65362
-# define KEYRIGHT 65363
-# define KEYDOWN 65364
+/*
+** Couleur
+*/
+# define KEYECHAP				65307
+# define KEYLEFT				65361
+# define KEYUP					65362
+# define KEYRIGHT				65363
+# define KEYDOWN				65364
 
 typedef struct			s_wall
 {
@@ -120,24 +128,13 @@ void			move_left(void);
 void			move_right(void);
 
 /*
-** detect_fct.c
-*/
-t_wall				ft_wall_distance(int i);
-
-/*
-** error_fct.c
-*/
-void			ft_error(char *s);
-
-/*
 ** hook_fct.c
 */
-int				ft_key_hook(int keycode);
 int				ft_expose_hook(t_win	*window);
 int 			ft_keypress(int keycode, t_win *window);
 int 			ft_key_release(int keycode, t_win *window);
-int 			ft_loop_hook(t_win *window);
 void			ft_exit(void);
+int				ft_loop_hook(t_win	*window);
 
 /*
 ** draw.c
@@ -147,6 +144,28 @@ void			ft_draw_floor(int x, int y);
 void			ft_draw_ceiling(int x, int y);
 void			ft_draw_img();
 void			mlx_put_pixel_to_image(int x, int y, int color);
+
+/*
+** horizontal_fct.c
+*/
+t_wall			ft_h_intersection(int i);
+t_pos2			*first_h_inter(double va);
+t_pos2			*next_h_inter(double va, t_pos2 *oi);
+
+/*
+** vertical_fct.c
+*/
+t_wall			ft_v_intersection(int i);
+t_pos2			*first_v_inter(double va);
+t_pos2			*next_v_inter(double va, t_pos2 *oi);
+
+/*
+** dist_fct.c
+*/
+t_wall			get_distance_h(double va, t_pos2 *inter);
+t_wall			get_distance_v(double va, t_pos2 *inter);
+t_wall			ft_wall_distance(int i);
+t_wall			ft_dist_correction(int i, t_wall wall);
 
 /*
 ** ft_get_next_line.c
@@ -171,18 +190,17 @@ void			img_del(t_img *img);
 t_pos2			*pos_init(double x, double y);
 void			pos_del(t_pos2 *pos);
 
+/*
+** detect_fct.c
+*/
+int				is_to_far(t_pos2 *pos);
+int				is_wall(t_pos2 *pos);
+int				looking_north(double va);
+int				looking_east(double va);
 
 /*
-** NEW TODO MOVE
+** error_fct.c
 */
-t_pos2	*first_h_inter(double va);
-t_pos2	*next_h_inter(double va, t_pos2 *oi);
-t_pos2	*first_v_inter(double va);
-t_pos2	*next_v_inter(double va, t_pos2 *oi);
-int		is_wall(t_pos2 *pos);
-int		looking_north(double va);
-int		looking_east(double va);
-t_wall	get_distance_h(double va, t_pos2 *inter);
-t_wall	get_distance_v(double va, t_pos2 *inter);
+void			ft_error(char *s);
 
 #endif /* !WOLF3D_H */

@@ -16,6 +16,9 @@ SRCS		= 	main.c				\
 				pos_fct.c			\
 				detect_fct.c		\
 				draw_fct.c			\
+				horizontal_fct.c	\
+				vertical_fct.c		\
+				dist_fct.c
 
 OBJS		= $(SRCS:.c=.o)
 

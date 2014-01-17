@@ -6,7 +6,7 @@ int		ft_expose_hook(t_win	*window)
 	return (0);
 }
 
-int 	ft_keypress(int keycode, t_win *window)
+int		ft_keypress(int keycode, t_win *window)
 {
 	if (keycode == KEYECHAP)
 		exit(0);
@@ -21,7 +21,7 @@ int 	ft_keypress(int keycode, t_win *window)
 	return (0);
 }
 
-int 	ft_key_release(int keycode, t_win *window)
+int		ft_key_release(int keycode, t_win *window)
 {
 	if (keycode == KEYUP)
 		window->save[0] = 0;
@@ -34,7 +34,7 @@ int 	ft_key_release(int keycode, t_win *window)
 	return (0);
 }
 
-int 	ft_loop_hook(t_win *window)
+int		ft_loop_hook(t_win *window)
 {
 	int 	i;
 	int 	ok;
@@ -61,7 +61,7 @@ int 	ft_loop_hook(t_win *window)
 	return (0);
 }
 
-void			ft_exit(void)
+void	ft_exit(void)
 {
 	env_del();
 	ft_del_map();

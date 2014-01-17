@@ -36,7 +36,7 @@ void	ft_draw_ceiling(int x, int y)
 	}
 }
 
-void	ft_draw_img()
+void	ft_draw_img(void)
 {
 	int			x;
 	int			y;
@@ -48,25 +48,13 @@ void	ft_draw_img()
 	{
 		wall = ft_wall_distance(x);
 		wall_height = STEP / wall.dist * POV;
-
-		/* Si hauteur du mur superieur hauteur fenetre on resize */
 		if (wall_height > WIN_HEI)
 			wall_height = WIN_HEI - 1;
-		printf("Hauteur = %f et x = %d\n", wall_height, x);
-
 		y = (WIN_HEI / 2) - 1 - (wall_height / 2);
-
-		/* on dessine le plafond */
 		ft_draw_ceiling(x, y);
-
-		/* on dessine le mur */
 		ft_draw_wall(wall_height, x, y, wall.color);
-
-		/* on dessine le floor */
 		ft_draw_floor(x, WIN_HEI / 2 + wall_height / 2 - 1);
 		x--;
-		/*if (x == WIN_WID - 300)
-			break ;*/
 	}
 }
 
