@@ -9,13 +9,13 @@ t_wall		ft_h_intersection(int i)
 
 	cam = ft_new_camera(NULL, 0);
 	wall_null.dist = 0;
-	va = cam->angle - (FOV / 2) + ((WIN_WID - 1 - i) * 0.99 * FOV) / WIN_WID;
+	va = cam->angle - (FOV / 2) + ((WIN_WID - 1 - i) * FOV) / WIN_WID;
 	if (va < 0)
 		va += 2 * M_PI;
 	else if (va > 2 * M_PI)
 		va -= 2 * M_PI;
 	inter = first_h_inter(va);
-	if (is_to_far(inter))
+	if (is_to_far(inter) || va == 0 || va == M_PI)
 		return (wall_null);
 	while(!is_wall(inter))
 	{
@@ -23,7 +23,7 @@ t_wall		ft_h_intersection(int i)
 		if (is_to_far(inter))
 			return (wall_null);
 	}
-	return (get_distance_h(va, inter));
+	return (get_distance_h(inter));
 }
 
 t_pos2				*first_h_inter(double va)
@@ -44,13 +44,11 @@ t_pos2				*next_h_inter(double va, t_pos2 *oi)
 	t_pos2	*ni;
 
 	ni = (t_pos2*)malloc(sizeof(t_pos2));
-	if (!(va == 0 || va == M_PI))
-		ni->y = looking_north(va) ? oi->y - STEP : oi->y + STEP;
-	else
-		ni->y = oi->y;
+	ni->y = looking_north(va) ? oi->y - STEP : oi->y + STEP;
 	if (looking_east(va))
 		ni->x = oi->x + abs(STEP / tan(va));
 	else
 		ni->x = oi->x - abs(STEP / tan(va));
+	ft_memdel((void **)(&oi));
 	return (ni);
 }

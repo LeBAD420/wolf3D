@@ -1,6 +1,6 @@
 #include "./includes/wolf3d.h"
 
-t_pos2			*pos_init(double x, double y)
+t_pos2		*pos_init(double x, double y)
 {
 	t_pos2	*new_pos;
 
@@ -10,7 +10,7 @@ t_pos2			*pos_init(double x, double y)
 	return (new_pos);
 }
 
-void			pos_del(t_pos2 *pos)
+void		pos_del(t_pos2 *pos)
 {
 	free(pos);
 	pos = NULL;

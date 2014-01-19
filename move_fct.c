@@ -8,8 +8,8 @@ void		move_up(void)
 
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
-	coord.x = (cam->pos->x + cos(cam->angle) * PLAYERSTEP);
-	coord.y = (cam->pos->y - sin(cam->angle) * PLAYERSTEP);
+	coord.x = cam->pos->x + cos(cam->angle) * PLAYERSTEP;
+	coord.y = cam->pos->y - sin(cam->angle) * PLAYERSTEP;
 	if (!is_wall(&coord))
 	{
 		cam->pos->x = coord.x;
@@ -21,21 +21,16 @@ void		move_down(void)
 {
 	t_cam		*cam;
 	t_map		*map;
-	double		new_x;
-	double		new_y;
+	t_pos2		coord;
 
 	cam = ft_new_camera(NULL, 0);
 	map = ft_init_map(NULL);
-	new_x = cam->pos->x - cos(cam->angle) * PLAYERSTEP;
-	new_y = cam->pos->y + sin(cam->angle) * PLAYERSTEP;
-	if ( new_y <= map->row * STEP && new_y > 0 &&
-		new_x <= map->col *STEP && new_x > 0)
+	coord.x = cam->pos->x - cos(cam->angle) * PLAYERSTEP;
+	coord.y = cam->pos->y + sin(cam->angle) * PLAYERSTEP;
+	if (!is_wall(&coord))
 	{
-		if (map->maze[(int)new_y / STEP][(int)new_x / STEP] == PATH)
-		{
-			cam->pos->x = new_x;
-			cam->pos->y = new_y;
-		}
+			cam->pos->x = coord.x;
+			cam->pos->y = coord.y;
 	}
 }
 

@@ -162,8 +162,8 @@ t_pos2			*next_v_inter(double va, t_pos2 *oi);
 /*
 ** dist_fct.c
 */
-t_wall			get_distance_h(double va, t_pos2 *inter);
-t_wall			get_distance_v(double va, t_pos2 *inter);
+t_wall			get_distance_h(t_pos2 *inter);
+t_wall			get_distance_v(t_pos2 *inter);
 t_wall			ft_wall_distance(int i);
 t_wall			ft_dist_correction(int i, t_wall wall);
 
